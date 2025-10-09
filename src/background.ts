@@ -1,2 +1,9 @@
-export {}
-console.log("HELLO WORLD FROM BGSCRIPTS")
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "FETCH_PROJECT") {
+    fetch(message.url)
+      .then((res) => res.json())
+      .then((data) => sendResponse({ success: true, data }))
+      .catch((err) => sendResponse({ success: false, error: err.message }))
+    return true // keeps sendResponse alive for async
+  }
+})
