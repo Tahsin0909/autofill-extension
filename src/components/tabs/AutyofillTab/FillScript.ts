@@ -21,6 +21,7 @@ export const autofillCredential = async (data: any) => {
         const propertyAddress = [
           'input[id="pt1:r1:3:pt1:it18::content"]',
           'input[id="pt1:r1:4:pt1:it18::content"]',
+          'input[id="pt1:r1:1:pt1:it18::content"]',
         ]
         propertyAddress.forEach((selector) => {
           const elements = document.querySelectorAll(selector)
@@ -41,6 +42,7 @@ export const autofillCredential = async (data: any) => {
         const propertyNumber = [
           'input[id="pt1:r1:3:pt1:it7::content"]',
           'input[id="pt1:r1:4:pt1:it7::content"]',
+          'input[id="pt1:r1:1:pt1:it7::content"]',
         ]
         propertyNumber.forEach((selector) => {
           const elements = document.querySelectorAll(selector)
@@ -60,6 +62,7 @@ export const autofillCredential = async (data: any) => {
         const municipalityCommunity = [
           'input[id="pt1:r1:3:pt1:it17::content"]',
           'input[id="pt1:r1:4:pt1:it17::content"]',
+          'input[id="pt1:r1:1:pt1:it17::content"]',
 
         ]
         municipalityCommunity.forEach((selector) => {
@@ -81,6 +84,7 @@ export const autofillCredential = async (data: any) => {
         const propertyPostalCode = [
           'input[id="pt1:r1:3:pt1:it19::content"]',
           'input[id="pt1:r1:4:pt1:it19::content"]',
+          'input[id="pt1:r1:1:pt1:it19::content"]',
         ]
         propertyPostalCode.forEach((selector) => {
           const elements = document.querySelectorAll(selector)
@@ -100,10 +104,12 @@ export const autofillCredential = async (data: any) => {
         // todo 
         // 1. ot form new api (kaek lookup)
 
+
         // Δημοτική Ενότητα / Περιοχή	
         //issues here also 
         const propertyPlace = [
           'textarea[id="pt1:r1:4:pt1:it12::content"]',
+          'textarea[id="pt1:r1:1:pt1:it12::content"]',
         ]
         propertyPlace.forEach((selector) => {
           const elements = document.querySelectorAll(selector)
@@ -421,6 +427,7 @@ export const autofillCredential = async (data: any) => {
           'input[id="pt1:r1:3:pt1:it13::content"]',
           'input[id="pt1:r1:12:pt1:it13::content"]',
           'input[id="pt1:r1:4:pt1:it13::content"]',
+          'input[id="pt1:r1:1:pt1:it13::content"]',
           // `textarea[name="r1:2:it28"]`
         ]
         kaek.forEach((selector) => {
