@@ -38,7 +38,8 @@
     "permissions": [
       "activeTab",
       "scripting",
-      "storage"
+      "storage",
+      "tabs"
     ]
   }
 }

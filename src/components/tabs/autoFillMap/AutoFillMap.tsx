@@ -9,52 +9,30 @@ const AutoFillMap = () => {
 473964.7396268935 4201348.1077137
 `;
 
-    // This function will run when button is clicked
     const handleAutoFill = async () => {
-        console.log("⏳ Περιμένω να φορτώσει το popup...");
-        await new Promise((r) => setTimeout(r, 3000));
+        try {
+            // Get current tab
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            console.log("Current tab:", tab);
 
-        // Search all frames
-        function findInAllFrames(selector) {
-            const found = [];
-            function search(doc) {
-                try {
-                    const el = doc.querySelectorAll(selector);
-                    if (el.length) found.push(...el);
-                    for (let i = 0; i < doc.defaultView.frames.length; i++) {
-                        try {
-                            search(doc.defaultView.frames[i].document);
-                        } catch (err) { }
+            // Send message to background script
+            chrome.runtime.sendMessage(
+                {
+                    action: "autoFillMap",
+                    coords: coords,
+                    tabId: tab.id
+                },
+                (response) => {
+                    if (response?.success) {
+                        console.log("✅ Autofill completed successfully");
+                    } else {
+                        console.error("❌ Autofill failed:", response?.error);
                     }
-                } catch (err) { }
-            }
-            search(document);
-            return found;
-        }
-
-        // Update textarea
-        const textareas = findInAllFrames('textarea[id*="GisLocation"]');
-        if (textareas.length > 0) {
-            textareas.forEach((t) => {
-                t.removeAttribute("readonly");
-                t.value = coords.trim();
-                t.dispatchEvent(new Event("input", { bubbles: true }));
-            });
-            console.log(`✅ Ενημερώθηκαν ${textareas.length} textareas με συντεταγμένες.`);
-        } else {
-            console.warn("⚠️ Δεν βρέθηκε κανένα textarea GisLocationRO::content.");
-        }
-
-        // Update hidden input
-        const inputs = findInAllFrames('input[name="GisLocation"]');
-        if (inputs.length > 0) {
-            inputs.forEach((i) => {
-                i.value = coords.trim();
-                i.dispatchEvent(new Event("input", { bubbles: true }));
-            });
-            alert(`✅ Συντεταγμένες περάστηκαν σε ${inputs.length} πεδία GisLocation!`);
-        } else {
-            alert("⚠️ Δεν βρέθηκε το input GisLocation (ούτε μέσα σε iframe).");
+                }
+            );
+        } catch (error) {
+            console.error("Error:", error);
+            alert("⚠️ Error: " + error.message);
         }
     };
 
@@ -62,7 +40,7 @@ const AutoFillMap = () => {
         <div className="p-4">
             <button
                 onClick={handleAutoFill}
-                className="bg-blue-600 text-white px-4 py-2 rounded"
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
                 Auto Fill Map
             </button>
