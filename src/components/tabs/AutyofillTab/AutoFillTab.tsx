@@ -3,6 +3,7 @@ import React from "react"
 import type { FetchState } from "~interfaces/global"
 
 import { autofillCredential } from "./FillScript"
+import AutoFillMap from "../autoFillMap/AutoFillMap"
 
 const AutoFillTab = ({
   state,
@@ -75,6 +76,8 @@ const AutoFillTab = ({
       <p className="text-xs text-gray-400 text-center mt-3">
         This will fill your form automatically
       </p>
+
+      <AutoFillMap />
     </div>
   )
 }
