@@ -43,6 +43,7 @@ export const autofillCredential = async (data: any) => {
           'input[id="pt1:r1:3:pt1:it7::content"]',
           'input[id="pt1:r1:4:pt1:it7::content"]',
           'input[id="pt1:r1:1:pt1:it7::content"]',
+          'input[id="r1:3:it2::content"]',
         ]
         propertyNumber.forEach((selector) => {
           const elements = document.querySelectorAll(selector)
@@ -127,25 +128,28 @@ export const autofillCredential = async (data: any) => {
           })
         })
 
+        //to-do
+        // id="r1:3:it17::content"
+
         // Δημοτική Ενότητα / Περιοχή	
         //issues here also 
-        const propertyPlace = [
-          'textarea[id="pt1:r1:4:pt1:it12::content"]',
-          'textarea[id="pt1:r1:1:pt1:it12::content"]',
-        ]
-        propertyPlace.forEach((selector) => {
-          const elements = document.querySelectorAll(selector)
-          elements.forEach((element) => {
-            if (
-              element instanceof HTMLInputElement ||
-              element instanceof HTMLTextAreaElement
-            ) {
-              element.value = data.propertyPlace || "No Value Found"
-              element.dispatchEvent(new Event("input", { bubbles: true }))
-              element.dispatchEvent(new Event("change", { bubbles: true }))
-            }
-          })
-        })
+        // const propertyPlace = [
+        //   'textarea[id="pt1:r1:4:pt1:it12::content"]',
+        //   'textarea[id="pt1:r1:1:pt1:it12::content"]',
+        // ]
+        // propertyPlace.forEach((selector) => {
+        //   const elements = document.querySelectorAll(selector)
+        //   elements.forEach((element) => {
+        //     if (
+        //       element instanceof HTMLInputElement ||
+        //       element instanceof HTMLTextAreaElement
+        //     ) {
+        //       element.value = data.propertyPlace || "No Value Found"
+        //       element.dispatchEvent(new Event("input", { bubbles: true }))
+        //       element.dispatchEvent(new Event("change", { bubbles: true }))
+        //     }
+        //   })
+        // })
 
 
         // project_description
@@ -239,7 +243,7 @@ export const autofillCredential = async (data: any) => {
           const elements = document.querySelectorAll(selector)
           elements.forEach((element) => {
             if (element instanceof HTMLInputElement) {
-              element.value = data?.protocolNumber || ""
+              element.value = data?.postalCode || ""
               element.dispatchEvent(new Event("input", { bubbles: true }))
               element.dispatchEvent(new Event("change", { bubbles: true }))
             }
@@ -618,34 +622,20 @@ export const autofillCredential = async (data: any) => {
             }
           });
         });
-        const property_place = [
+        const propertyPlace = [
           'input[id="r1:3:it15::content"]',
           // `textarea[name="r1:2:it28"]`
         ]
-        property_place.forEach((selector) => {
-          const elements = document.querySelectorAll(selector);
+        propertyPlace.forEach((selector) => {
+          const elements = document.querySelectorAll(selector)
           elements.forEach((element) => {
             if (element instanceof HTMLInputElement) {
-              const rawValue = data?.titleArea || "";
-
-              // remove anything except digits and dot
-              let cleanedValue = rawValue.replace(/[^\d.]/g, "");
-
-              // allow only one dot
-              cleanedValue = cleanedValue.replace(/^([^.]*\.)|\./g, (m, g1) => g1 || "");
-
-              // convert dot to comma
-              cleanedValue = cleanedValue.replace(".", ",");
-
-              console.log("cleanedValue:", cleanedValue);
-
-              element.value = cleanedValue;
-
-              element.dispatchEvent(new Event("input", { bubbles: true }));
-              element.dispatchEvent(new Event("change", { bubbles: true }));
+              element.value = data?.propertyPlace || ""
+              element.dispatchEvent(new Event("input", { bubbles: true }))
+              element.dispatchEvent(new Event("change", { bubbles: true }))
             }
-          });
-        });
+          })
+        })
 
         // project_description_htk_plot
         // Περιγραφή Οικοπέδου/Γηπέδου
@@ -703,6 +693,8 @@ export const autofillCredential = async (data: any) => {
         })
         // Επιφάνεια (τμ)
         // plotArea
+        // id="r1:3:it13::content"
+        // need to fix the comma issuer 277,50 become 27750,
         const plotArea = [
           'input[id="r1:3:it13::content"]',
         ]
@@ -732,7 +724,7 @@ export const autofillCredential = async (data: any) => {
         });
         // Αριθμός κτιρίων
         const kaekLookUoANdOt = [
-          'input[id="r1:3:it6::content"]',
+          // 'input[id="r1:3:it6::content"]',
         ]
         kaekLookUoANdOt.forEach((selector) => {
           const elements = document.querySelectorAll(selector)
@@ -742,6 +734,22 @@ export const autofillCredential = async (data: any) => {
               element instanceof HTMLTextAreaElement
             ) {
               element.value = `${data.otNumber} kaek` || "No Value Found"
+              element.dispatchEvent(new Event("input", { bubbles: true }))
+              element.dispatchEvent(new Event("change", { bubbles: true }))
+            }
+          })
+        })
+        const prop = [
+          'input[id="r1:3:it7::content"]',
+        ]
+        prop.forEach((selector) => {
+          const elements = document.querySelectorAll(selector)
+          elements.forEach((element) => {
+            if (
+              element instanceof HTMLInputElement ||
+              element instanceof HTMLTextAreaElement
+            ) {
+              element.value = data.prop || "No Value Found"
               element.dispatchEvent(new Event("input", { bubbles: true }))
               element.dispatchEvent(new Event("change", { bubbles: true }))
             }
