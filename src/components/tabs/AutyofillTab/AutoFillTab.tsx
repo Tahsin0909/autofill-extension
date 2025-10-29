@@ -25,7 +25,7 @@ const AutoFillTab = ({
     console.log("Clicked")
     autofillCredential(state?.data?.data)
   }
-
+  console.log(state?.data?.data)
   const deleteData = async () => {
     try {
       await chrome.storage.local.set({ data: null })

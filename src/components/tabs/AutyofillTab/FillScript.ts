@@ -103,7 +103,24 @@ export const autofillCredential = async (data: any) => {
 
         // todo 
         // 1. ot form new api (kaek lookup)
+        const ot = [
+          'input[id="pt1:r1:3:pt1:it15::content"]',
+          'input[id="pt1:r1:1:pt1:it15::content"]',
 
+        ]
+        ot.forEach((selector) => {
+          const elements = document.querySelectorAll(selector)
+          elements.forEach((element) => {
+            if (
+              element instanceof HTMLInputElement ||
+              element instanceof HTMLTextAreaElement
+            ) {
+              element.value = data.otNumber || "No Value Found"
+              element.dispatchEvent(new Event("input", { bubbles: true }))
+              element.dispatchEvent(new Event("change", { bubbles: true }))
+            }
+          })
+        })
 
         // Δημοτική Ενότητα / Περιοχή	
         //issues here also 
@@ -146,7 +163,7 @@ export const autofillCredential = async (data: any) => {
               element instanceof HTMLInputElement ||
               element instanceof HTMLTextAreaElement
             ) {
-              element.value = data.projectDescription || "No Value Found"
+              element.value = data.projectDescriptions || "No Value Found"
               element.dispatchEvent(new Event("input", { bubbles: true }))
               element.dispatchEvent(new Event("change", { bubbles: true }))
             }
@@ -208,24 +225,6 @@ export const autofillCredential = async (data: any) => {
             }
           })
         })
-        // street_no
-        const street_no = [
-          'input[id="r1:2:it13::content"]',
-          'input[id="r1:1:it13::content"]',
-          'input[id="r1:3:it5::content"]'
-          // `textarea[name="r1:2:it28"]`
-        ]
-        street_no.forEach((selector) => {
-          const elements = document.querySelectorAll(selector)
-          elements.forEach((element) => {
-            if (element instanceof HTMLInputElement) {
-              element.value = data?.street_no || "kaek"
-              element.dispatchEvent(new Event("input", { bubbles: true }))
-              element.dispatchEvent(new Event("change", { bubbles: true }))
-            }
-          })
-        })
-
         const kaek_land = [
           'textarea[id="r1:2:it1::content"]'
           // `textarea[name="r1:2:it28"]`
@@ -495,118 +494,225 @@ export const autofillCredential = async (data: any) => {
         })
 
         //Owners
-        data?.owners?.forEach((owner, index) => {
-          // Only target the current row based on owner index
-          const rowId = `pt1:r1:9:pt1:pc1:t2:${index}:`
 
-          // Build selectors for this row only
-          const selectors = {
-            firstName: `input[id="${rowId}it6::content"]`,
-            lastName: `input[id="${rowId}it3::content"]`,
 
-            //split into two and the last one uis the value
-            fatherName: `input[id="${rowId}it4::content"]`,
-            motherName: `input[id="${rowId}it7::content"]`,
-            address: `input[id="${rowId}it2::content"]`,
-            city: `input[id="${rowId}it11::content"]`,
-            postalCode: `input[id="${rowId}it5::content"]`,
-            phone: `input[id="${rowId}it15::content"]`,
-            email: `input[id="${rowId}it1::content"]`,
-            afm: `input[id="${rowId}it9::content"]`,
+        // find ALL owner row prefixes
+        const allInputs = Array.from(document.querySelectorAll('input[id*=":it3::content"]')); // last name is stable field
+        const rowPrefixes = [];
+
+        allInputs.forEach(input => {
+          // example: id = "pt1:r1:7:pt1:pc1:t2:4:it3::content"
+          const match = input.id.match(/^(.*?:t2:\d+:)/);
+          if (match && !rowPrefixes.includes(match[1])) {
+            rowPrefixes.push(match[1]);
           }
+        });
 
-          // Helper to fill a field by selector
-          const fillField = (selector, value) => {
-            const elements = document.querySelectorAll(selector)
-            elements.forEach((el) => {
-              if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
-                el.value = value
-                el.dispatchEvent(new Event("input", { bubbles: true }))
-                el.dispatchEvent(new Event("change", { bubbles: true }))
-              }
-            })
-          }
+        data.owners.forEach((owner, idx) => {
+          const prefix = rowPrefixes[idx];
+          if (!prefix) return; // if UI has fewer rows, skip
 
-          // Fill each field for this row
-          fillField(selectors.firstName, owner?.firstName || "")
-          fillField(selectors.lastName, owner?.lastName || "")
-          fillField(selectors.fatherName, owner?.fatherName || "")
-          fillField(selectors.motherName, owner?.motherName || "")
-          fillField(selectors.address, owner?.address || "")
-          fillField(selectors.city, owner?.city || "")
-          fillField(selectors.postalCode, owner?.postalCode || "")
-          fillField(selectors.phone, owner?.phone || "")
-          fillField(selectors.email, owner?.email || "")
-          fillField(selectors.afm, owner?.afm || "")
-        })
-        //esdfsdfsdfsfsff
-        const formSelectors2 = {
-          registrationStatus: [
-            'select[id="r1:2:soc2::content"]'
-            // `select[id="r1:0:qryId1:val30::content"]`
-          ]
-        }
+          const fill = (field, value) => {
+            const selector = `input[id="${prefix}${field}"]`;
+            const el = document.querySelector(selector);
+            if (el instanceof HTMLInputElement) {
+              el.value = value;
+              el.dispatchEvent(new Event("input", { bubbles: true }));
+              el.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+          };
 
-        const fakeData2 = {
-          registrationStatus: "3" // "With finalized properties"
-        }
+          fill("it6::content", owner.firstName || "");
+          fill("it3::content", owner.lastName || "");
+          fill("it4::content", owner.fatherFirstLastName || "");
+          fill("it7::content", owner.motherFirstLastName || "");
+          fill("it2::content", owner.addressNumber || "");
+          fill("it11::content", owner.city || "");
+          fill("it5::content", owner.postalCode || "");
+          fill("it15::content", owner.phone || "");
+          fill("it1::content", owner.email || "");
+          fill("it9::content", owner.afm || "");
+        });
 
-        Object.entries(formSelectors2).forEach(([key, selectors]) => {
-          selectors.forEach((selector) => {
-            const elements = document.querySelectorAll(selector)
-            elements.forEach((el) => {
-              if (
-                el instanceof HTMLInputElement ||
-                el instanceof HTMLSelectElement
-              ) {
-                el.value = fakeData2[key] || ""
-                el.dispatchEvent(new Event("input", { bubbles: true }))
-                el.dispatchEvent(new Event("change", { bubbles: true }))
-              }
-            })
+
+        // experimenting 
+        // find delect value with id 
+        // function setSelectValueById(selectId, newValue) {
+        //   const selectElement = document.getElementById(selectId);
+        //   if (selectElement instanceof HTMLSelectElement) {
+        //     selectElement.value = newValue;
+        //     selectElement.dispatchEvent(new Event('change', { bubbles: true }));
+        //     console.log(`Select with ID '${selectId}' value set to '${newValue}'.`);
+        //     return true;
+        //   }
+        //   console.error(`Select element with ID '${selectId}' not found.`);
+        //   return false;
+        // }
+
+        // const formSelectors2 = [
+        //   'select[id="pt1:r1:3:pt1:pc1:t2:0:soc1::content"]'
+        // ];
+
+        // formSelectors2.forEach((selector) => {
+        //   const elements = document.querySelectorAll(selector);
+        //   console.log("elements", elements);
+
+        //   elements.forEach((el) => {
+        //     if (el instanceof HTMLSelectElement) {
+        //       // set value directly
+        //       setSelectValueById(el.id, "3");
+        //     } else if (el instanceof HTMLInputElement) {
+        //       el.value = "someValue";
+        //       el.dispatchEvent(new Event("input", { bubbles: true }));
+        //       el.dispatchEvent(new Event("change", { bubbles: true }));
+        //     }
+        //   });
+        // });
+
+        // const formSelectors3 = [
+        //   'select[id="pt1:r1:3:pt1:pc1:t2:0:soc2::content"]'
+        // ];
+
+        // formSelectors3.forEach((selector) => {
+        //   const elements = document.querySelectorAll(selector);
+        //   console.log("elements", elements);
+
+        //   elements.forEach((el) => {
+        //     if (el instanceof HTMLSelectElement) {
+        //       // set value directly
+        //       setSelectValueById(el.id, "3");
+        //     } else if (el instanceof HTMLInputElement) {
+        //       el.value = "someValue";
+        //       el.dispatchEvent(new Event("input", { bubbles: true }));
+        //       el.dispatchEvent(new Event("change", { bubbles: true }));
+        //     }
+        //   });
+        // });
+        // ΥΠ.ΕΝ
+        // issuingAuthority
+        // id="pt1:r1:3:pt1:pc1:t2:0:it4::content"
+        const issuingAuthority = [
+          'input[id="pt1:r1:3:pt1:pc1:t2:0:it4::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:1:it4::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:2:it4::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:3:it4::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:4:it4::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:5:it4::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:6:it4::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:7:it4::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:8:it4::content"]',
+          // `textarea[name="r1:2:it28"]`
+        ]
+        issuingAuthority.forEach((selector) => {
+          const elements = document.querySelectorAll(selector)
+          elements.forEach((element) => {
+            if (
+              element instanceof HTMLInputElement ||
+              element instanceof HTMLTextAreaElement
+            ) {
+              element.value = data?.issuingAuthority || ""
+              element.dispatchEvent(new Event("input", { bubbles: true }))
+              element.dispatchEvent(new Event("change", { bubbles: true }))
+            }
           })
         })
+
+        // Αριθμός πράξης
+        // 
+        const legalizationStatementNumber = [
+          'input[id="pt1:r1:3:pt1:pc1:t2:0:it3::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:1:it3::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:2:it3::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:3:it3::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:4:it3::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:5:it3::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:6:it3::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:7:it3::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:8:it3::content"]',
+          // `textarea[name="r1:2:it28"]`
+        ]
+        legalizationStatementNumber.forEach((selector) => {
+          const elements = document.querySelectorAll(selector)
+          elements.forEach((element) => {
+            if (element instanceof HTMLInputElement) {
+              element.value = data?.legalizationStatementNumber || ""
+              element.dispatchEvent(new Event("input", { bubbles: true }))
+              element.dispatchEvent(new Event("change", { bubbles: true }))
+            }
+          })
+        })
+
+
+
+        // Δόμηση (τ.μ.)
+        const titleArea = [
+          'input[id="pt1:r1:3:pt1:pc1:t2:0:it1::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:1:it1::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:2:it1::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:3:it1::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:4:it1::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:5:it1::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:6:it1::content"]',
+          'input[id="pt1:r1:3:pt1:pc1:t2:7:it1::content"]',
+          // `textarea[name="r1:2:it28"]`
+        ]
+        titleArea.forEach((selector) => {
+          const elements = document.querySelectorAll(selector);
+          elements.forEach((element) => {
+            if (element instanceof HTMLInputElement) {
+              const rawValue = data?.titleArea || "";
+
+              // remove anything except digits and dot
+              let cleanedValue = rawValue.replace(/[^\d.]/g, "");
+
+              // allow only one dot
+              cleanedValue = cleanedValue.replace(/^([^.]*\.)|\./g, (m, g1) => g1 || "");
+
+              // convert dot to comma
+              cleanedValue = cleanedValue.replace(".", ",");
+
+              console.log("cleanedValue:", cleanedValue);
+
+              element.value = cleanedValue;
+
+              element.dispatchEvent(new Event("input", { bubbles: true }));
+              element.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+          });
+        });
+        const property_place = [
+          'input[id="r1:3:it15::content"]',
+          // `textarea[name="r1:2:it28"]`
+        ]
+        property_place.forEach((selector) => {
+          const elements = document.querySelectorAll(selector);
+          elements.forEach((element) => {
+            if (element instanceof HTMLInputElement) {
+              const rawValue = data?.titleArea || "";
+
+              // remove anything except digits and dot
+              let cleanedValue = rawValue.replace(/[^\d.]/g, "");
+
+              // allow only one dot
+              cleanedValue = cleanedValue.replace(/^([^.]*\.)|\./g, (m, g1) => g1 || "");
+
+              // convert dot to comma
+              cleanedValue = cleanedValue.replace(".", ",");
+
+              console.log("cleanedValue:", cleanedValue);
+
+              element.value = cleanedValue;
+
+              element.dispatchEvent(new Event("input", { bubbles: true }));
+              element.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+          });
+        });
       },
+
       args: [data]
     })
 
-    // legalizationStatementNumber not working
-    // Αριθμός πράξης
-    // id="pt1:r1:5:pt1:pc1:t2:0:it3::content"
-    const legalizationStatementNumber = [
-      'input[id="pt1:r1:5:pt1:pc1:t2:0:it3::content"]',
-      // `textarea[name="r1:2:it28"]`
-    ]
-    legalizationStatementNumber.forEach((selector) => {
-      const elements = document.querySelectorAll(selector)
-      elements.forEach((element) => {
-        if (element instanceof HTMLInputElement) {
-          element.value = data?.legalizationStatementNumber || ""
-          element.dispatchEvent(new Event("input", { bubbles: true }))
-          element.dispatchEvent(new Event("change", { bubbles: true }))
-        }
-      })
-    })
-    // legalizationStatementNumber not working
-
-    // titleArea not working
-    // Δόμηση (τ.μ.)
-    const titleArea = [
-      'input[id="pt1:r1:5:pt1:pc1:t2:0:it1::content"]',
-      'input[id="pt1:r1:5:pt1:pc1:t2:1:it1::content"]',
-      // `textarea[name="r1:2:it28"]`
-    ]
-    titleArea.forEach((selector) => {
-      const elements = document.querySelectorAll(selector)
-      elements.forEach((element) => {
-        if (element instanceof HTMLInputElement) {
-          element.value = data?.titleArea || ""
-          element.dispatchEvent(new Event("input", { bubbles: true }))
-          element.dispatchEvent(new Event("change", { bubbles: true }))
-        }
-      })
-    })
-    // titleArea not working
 
 
     // Επώνυμο/ία (Υποχρεωτικό) :::  id="pt1:r1:8:pt1:pc1:t2:0:it3::content" ::: owner surname

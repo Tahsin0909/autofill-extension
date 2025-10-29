@@ -30,7 +30,8 @@ function IntroTabs({
     setState({ loading: true, error: null, data: null })
 
     // Call via background script
-    const url = `https://api.buildai.gr/api/v1/projects/user-project?hexToken=${userId}&projectCode=${projectId}`
+    const url = `http://10.0.80.94:8145/api/v1/projects/user-project?hexToken=${userId}&projectCode=${projectId}`
+    // const url = `https://api.buildai.gr/api/v1/projects/user-project?hexToken=${userId}&projectCode=${projectId}`
 
     chrome.runtime.sendMessage({ type: "FETCH_PROJECT", url }, (response) => {
       console.log(response)
