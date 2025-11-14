@@ -12,6 +12,8 @@ function IntroTabs({
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
 
+
+  //TODO tab must always open
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 

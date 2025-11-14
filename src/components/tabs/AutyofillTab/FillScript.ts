@@ -642,6 +642,7 @@ export const autofillCredential = async (data: any) => {
         const project_description_htk_plot = [
           'textarea[id="r1:3:it20::content"]',
 
+
         ]
         project_description_htk_plot.forEach((selector) => {
           const elements = document.querySelectorAll(selector)
@@ -650,14 +651,35 @@ export const autofillCredential = async (data: any) => {
               element instanceof HTMLInputElement ||
               element instanceof HTMLTextAreaElement
             ) {
-              element.value = data.projectDescriptionHtkPlot || "No Value Found"
+              element.value = data.projectDescriptionHtkPlot || "projectDescriptionHtkPlot"
+              element.dispatchEvent(new Event("input", { bubbles: true }))
+              element.dispatchEvent(new Event("change", { bubbles: true }))
+            }
+          })
+        })
+
+        // horizontalPropertyName
+        // 'textarea[id="r1:7:it20::content"]',
+        const horizontalPropertyName = [
+          'textarea[id="r1:7:it20::content"]',
+
+
+        ]
+        horizontalPropertyName.forEach((selector) => {
+          const elements = document.querySelectorAll(selector)
+          elements.forEach((element) => {
+            if (
+              element instanceof HTMLInputElement ||
+              element instanceof HTMLTextAreaElement
+            ) {
+              element.value = data.horizontalPropertyName || "horizontalPropertyName"
               element.dispatchEvent(new Event("input", { bubbles: true }))
               element.dispatchEvent(new Event("change", { bubbles: true }))
             }
           })
         })
         const property_address = [
-          'input[id="r1:3:it5::content"]',
+          // 'input[id="r1:3:it5::content"]',
           'input[id="r1:2:it13::content"]',
 
         ]
@@ -674,9 +696,11 @@ export const autofillCredential = async (data: any) => {
             }
           })
         })
-        // ΚΑΕΚ Οικοπέδου
+        // ΚΑΕΚ Οικοπέδου its a kaek plot
         const kaekProperty = [
           'input[id="r1:3:it17::content"]',
+          'input[id="r1:7:it5::content"]',
+          'input[id="r1:3:it5::content"]',
         ]
         kaekProperty.forEach((selector) => {
           const elements = document.querySelectorAll(selector)
@@ -691,6 +715,68 @@ export const autofillCredential = async (data: any) => {
             }
           })
         })
+        // percentageCoOwnershipParcel
+        // id="r1:7:it2::content"
+        const percentageCoOwnershipParcel = [
+          'input[id="r1:7:it2::content"]',
+
+        ]
+        percentageCoOwnershipParcel.forEach((selector) => {
+          const elements = document.querySelectorAll(selector)
+          elements.forEach((element) => {
+            if (
+              element instanceof HTMLInputElement ||
+              element instanceof HTMLTextAreaElement
+            ) {
+              element.value = data.percentageCoOwnershipParcel.split("/")[0] || "No Value Found"
+              element.dispatchEvent(new Event("input", { bubbles: true }))
+              element.dispatchEvent(new Event("change", { bubbles: true }))
+            }
+          })
+        })
+
+        // numberEstablishmentHorizontalOwnership
+        // if has this reviewsNumbersEstablishmentHorizontalOwnership then reviewsNumbersEstablishmentHorizontalOwnership , if not then  numberEstablishmentHorizontalOwnership 
+        // id="r1:7:it3::content"
+        const reviewsNumbersEstablishmentHorizontalOwnership = [
+          'input[id="r1:7:it3::content"]',
+
+        ]
+        reviewsNumbersEstablishmentHorizontalOwnership.forEach((selector) => {
+          const elements = document.querySelectorAll(selector)
+          elements.forEach((element) => {
+            if (
+              element instanceof HTMLInputElement ||
+              element instanceof HTMLTextAreaElement
+            ) {
+              element.value = data.reviewsNumbersEstablishmentHorizontalOwnership || data.numberEstablishmentHorizontalOwnership || "No Value Found"
+              element.dispatchEvent(new Event("input", { bubbles: true }))
+              element.dispatchEvent(new Event("change", { bubbles: true }))
+            }
+          })
+        })
+
+        // id="r1:7:it7::content"
+        // notaryReviewsEstablishmentHorizontalOwnership || notaryEstablishmentHorizontalOwnership
+        const notaryReviewsEstablishmentHorizontalOwnership = [
+          'input[id="r1:7:it7::content"]',
+
+        ]
+        notaryReviewsEstablishmentHorizontalOwnership.forEach((selector) => {
+          const elements = document.querySelectorAll(selector)
+          elements.forEach((element) => {
+            if (
+              element instanceof HTMLInputElement ||
+              element instanceof HTMLTextAreaElement
+            ) {
+              element.value = data.notaryReviewsEstablishmentHorizontalOwnership || data.notaryEstablishmentHorizontalOwnership || "No Value Found"
+              element.dispatchEvent(new Event("input", { bubbles: true }))
+              element.dispatchEvent(new Event("change", { bubbles: true }))
+            }
+          })
+        })
+
+
         // Επιφάνεια (τμ)
         // plotArea
         // id="r1:3:it13::content"
@@ -704,14 +790,8 @@ export const autofillCredential = async (data: any) => {
             if (element instanceof HTMLInputElement) {
               const rawValue = data?.plotArea || "";
 
-              // remove anything except digits and dot
-              let cleanedValue = rawValue.replace(/[^\d.]/g, "");
-
-              // allow only one dot
-              cleanedValue = cleanedValue.replace(/^([^.]*\.)|\./g, (m, g1) => g1 || "");
-
-              // convert dot to comma
-              cleanedValue = cleanedValue.replace(".", ",");
+              // extract only number with comma or dot
+              let cleanedValue = rawValue.match(/[\d.,]+/g)?.[0] || "";
 
               console.log("cleanedValue:", cleanedValue);
 
@@ -779,6 +859,21 @@ export const autofillCredential = async (data: any) => {
 
     // Close popup after successful autofill
     // window.close()
+
+
+    //third serviuces owner 
+    // id="r1:7:pc3:t8:0:it36::content" -> third dervice owner percentage -> Ποσοστό
+    // id="r1:7:pc3:t8:0:it37::content" -> owner surname -> Επώνυμο/ία
+    //id="r1:7:pc3:t8:0:it25::content" -> father pnly name
+    //id="r1:7:pc3:t8:0:it33::content" -> adress and number owner -> ownerAddress addressNumber || Διεύθυνση
+    // id="r1:7:pc3:t8:0:it24::content" -> Πόλη || city
+    //id="r1:7:pc3:t8:0:it41::content" -> postal code
+    // id="r1:7:pc3:t8:0:it17::content" -> TEE mumber
+
+    //id="r1:3:pc1:t2:0:it27::content" -> Α/Α πράξης (Υποχρεωτικό) -> permitNumber
+    //id="r1:3:pc1:t2:0:id6::content" -> dateIssuanceBuildingPermit
+    // id="r1:3:pc1:t2:0:it29::content" -> static text -> ΟΙΚΟΔΟΜΙΚΗ ΑΔΕΙΑ
+    // id="r1:3:pc1:t2:0:it30::content" -Z> issuingAuthority
   } catch (error) {
     console.error("Autofill failed:", error)
     alert("Autofill failed. Make sure you're on a page with forms.")
