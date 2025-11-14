@@ -641,8 +641,6 @@ export const servicesThreeFill = async (data: any) => {
                 // Περιγραφή Οικοπέδου/Γηπέδου
                 const project_description_htk_plot = [
                     'textarea[id="r1:3:it20::content"]',
-
-
                 ]
                 project_description_htk_plot.forEach((selector) => {
                     const elements = document.querySelectorAll(selector)
@@ -651,7 +649,7 @@ export const servicesThreeFill = async (data: any) => {
                             element instanceof HTMLInputElement ||
                             element instanceof HTMLTextAreaElement
                         ) {
-                            element.value = data.projectDescriptionHtkPlot || "projectDescriptionHtkPlot"
+                            element.value = data.projectDescriptionHtkPlot || ""
                             element.dispatchEvent(new Event("input", { bubbles: true }))
                             element.dispatchEvent(new Event("change", { bubbles: true }))
                         }

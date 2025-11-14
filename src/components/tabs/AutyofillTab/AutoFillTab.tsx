@@ -4,6 +4,9 @@ import type { FetchState } from "~interfaces/global"
 
 import { autofillCredential } from "./FillScript"
 import AutoFillMap from "../autoFillMap/AutoFillMap"
+import { servicesOneFill } from "./fillScripts/servicesOneFill"
+import { servicesTwoFill } from "./fillScripts/servicesTwoFill"
+import { servicesThreeFill } from "./fillScripts/servicesThreeFill"
 
 const AutoFillTab = ({
   state,
@@ -23,22 +26,23 @@ const AutoFillTab = ({
 
   const handleAutofill = () => {
     console.log("Clicked");
-    autofillCredential(state?.data?.data);
-    console.log(state?.data?.data.service);
-
     switch (state?.data?.data.service?.serviceTitle) {
       case "Service-1":
+        servicesOneFill(state?.data?.data);
         console.log("Service-1");
         break;
 
       case "Service-2":
+        servicesTwoFill(state?.data?.data);
         console.log("Service-2");
         break;
 
       case "Service-3":
+        servicesThreeFill(state?.data?.data);
         console.log("Service-3");
         break;
       case "Service-4":
+        servicesOneFill(state?.data?.data);
         console.log("Service-4");
         break;
 
