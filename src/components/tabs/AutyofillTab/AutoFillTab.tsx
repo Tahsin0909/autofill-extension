@@ -22,10 +22,35 @@ const AutoFillTab = ({
   )
 
   const handleAutofill = () => {
-    console.log("Clicked")
-    autofillCredential(state?.data?.data)
-  }
-  console.log(state?.data?.data)
+    console.log("Clicked");
+    autofillCredential(state?.data?.data);
+    console.log(state?.data?.data.service);
+
+    switch (state?.data?.data.service?.serviceTitle) {
+      case "Service-1":
+        console.log("Service-1");
+        break;
+
+      case "Service-2":
+        console.log("Service-2");
+        break;
+
+      case "Service-3":
+        console.log("Service-3");
+        break;
+      case "Service-4":
+        console.log("Service-4");
+        break;
+
+      default:
+        console.log("No Service matched");
+    }
+  };
+
+
+
+
+  console.log(state?.data?.data?.service)
   const deleteData = async () => {
     try {
       await chrome.storage.local.set({ data: null })
@@ -35,7 +60,7 @@ const AutoFillTab = ({
       alert("Failed to delete credential")
     }
   }
-  console.log(state?.data?.data.owners)
+
   return (
     <div className="w-[300px] p-4 bg-white rounded-xl shadow-lg">
       {/* Back Button */}
