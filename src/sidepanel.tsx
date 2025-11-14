@@ -6,7 +6,7 @@ import AutoFillTab from "~components/tabs/AutyofillTab/AutoFillTab"
 import IntroTabs from "~components/tabs/IntroTabs"
 import type { FetchState } from "~interfaces/global"
 
-function IndexPopup() {
+function IndexSidePanel() {
   const [state, setState] = useState<FetchState>({
     loading: false,
     error: null,
@@ -43,4 +43,4 @@ function IndexPopup() {
   )
 }
 
-export default IndexPopup
+export default IndexSidePanel;
