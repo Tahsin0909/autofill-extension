@@ -55,7 +55,7 @@ const AutoFillTab = ({
 
 
 
-  console.log(state?.data?.data?.service)
+
   const deleteData = async () => {
     try {
       await chrome.storage.local.set({ data: null })
@@ -82,7 +82,7 @@ const AutoFillTab = ({
           <span className="text-green-600 text-lg">✓</span>
         </div>
       </div>
-
+      {state?.data?.data?.kaekProperty.split("/")[0]}
       {/* User Info Card */}
       <div className="bg-gray-50 rounded-lg p-3 mb-4 space-y-2">
         <div className="flex justify-between items-center">
@@ -107,11 +107,9 @@ const AutoFillTab = ({
         This will fill your form automatically
       </p>
 
+      <AutoFillMap kaek={state?.data?.data?.kaekProperty.split("/")[0] as string} />
 
-
-      <AutoFillMap />
-
-      <AllData data={state?.data?.data} />
+      {/* <AllData data={state?.data?.data} /> */}
     </div>
   )
 }
