@@ -30,7 +30,8 @@
     "host_permissions": [
       "https://*/*",
       "http://172.252.13.71:8145/*",
-      "https://api.buildai.gr/*"
+      "https://api.buildai.gr/*",
+      "http://10.0.80.94"
     ],
     "background": {
       "service_worker": "background.ts"

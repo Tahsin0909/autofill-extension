@@ -7,6 +7,7 @@ import AutoFillMap from "../autoFillMap/AutoFillMap"
 import { servicesOneFill } from "./fillScripts/servicesOneFill"
 import { servicesTwoFill } from "./fillScripts/servicesTwoFill"
 import { servicesThreeFill } from "./fillScripts/servicesThreeFill"
+import AllData from "../allData/AllData"
 
 const AutoFillTab = ({
   state,
@@ -66,7 +67,7 @@ const AutoFillTab = ({
   }
 
   return (
-    <div className="w-[300px] p-4 bg-white rounded-xl shadow-lg">
+    <div className="p-4 bg-white rounded-xl shadow-lg">
       {/* Back Button */}
       <button
         onClick={deleteData}
@@ -106,7 +107,11 @@ const AutoFillTab = ({
         This will fill your form automatically
       </p>
 
+
+
       <AutoFillMap />
+
+      <AllData data={state?.data?.data} />
     </div>
   )
 }

@@ -11,11 +11,7 @@ const AutoFillMap = () => {
 
     const handleAutoFill = async () => {
         try {
-            // Get current tab
             const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-            console.log("Current tab:", tab);
-
-            // Send message to background script
             chrome.runtime.sendMessage(
                 {
                     action: "autoFillMap",
@@ -23,27 +19,31 @@ const AutoFillMap = () => {
                     tabId: tab.id
                 },
                 (response) => {
-                    if (response?.success) {
-                        console.log("✅ Autofill completed successfully");
-                    } else {
-                        console.error("❌ Autofill failed:", response?.error);
-                    }
+                    if (response?.success) console.log("Autofill done");
                 }
             );
         } catch (error) {
-            console.error("Error:", error);
-            alert("⚠️ Error: " + error.message);
+            alert(error.message);
         }
     };
 
     return (
-        <div className="p-4">
-            <button
-                onClick={handleAutoFill}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-                Auto Fill Map
-            </button>
+        <div className="relative flex items-center gap-5 my-2 p-3 rounded-lg overflow-hidden bg-gray-100">
+            {/* Right Panel */}
+            <div className="flex flex-col items-start bg-white p-3 rounded-lg shadow z-10 w-full ">
+                <h2 className="text-sm font-semibold">Map Auto Fill</h2>
+
+                <button
+                    onClick={handleAutoFill}
+                    className="mt-2 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                >
+                    Auto Fill Map
+                </button>
+
+                <p className="text-xs text-gray-500 mt-2">
+                    Click to autofill coordinates
+                </p>
+            </div>
         </div>
     );
 };
