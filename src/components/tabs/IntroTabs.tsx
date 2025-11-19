@@ -37,7 +37,7 @@ function IntroTabs({
     // const url = `http://10.0.80.94:8145/api/v1/user/${userId}/project/${projectId}`
     // const url = `http://10.0.80.94:8145/api/v1/projects/user-project?hexToken=${userId}&projectCode=${projectId}`
     // http://31.97.37.168:8145/api/v1/projects/user/ba235934/project/7890
-    const url = `http://10.0.80.94:8145/api/v1/projects/user/${userId}/project/${projectId}`
+    const url = `http://31.97.37.168:8145/api/v1/projects/user/${userId}/project/${projectId}`
     // const url = `http://31.97.37.168:8145/api/v1/projects/user/${userId}/project/${projectId}`
     // const url = `https://api.buildai.gr/api/v1/projects/user/${userId}/project/${projectId}`
 
