@@ -69,4 +69,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+// Listen for extension icon click
+chrome.sidePanel?.setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => console.log('Side panel API not available:', error));
 
+// Alternative: Use action.onClicked
+chrome.action.onClicked.addListener((tab) => {
+  // Method 1: Using sidePanel API (Chrome 114+)
+  if (chrome.sidePanel) {
+    chrome.sidePanel.open({ windowId: tab.windowId });
+    return;
+  }
+
+  // Method 2: Fallback for older Chrome versions or other browsers
+  chrome.tabs.sendMessage(tab.id, { action: "toggleSidebar" });
+});

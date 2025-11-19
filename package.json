@@ -37,10 +37,8 @@
       "service_worker": "background.ts"
     },
     "permissions": [
-      "activeTab",
       "scripting",
       "storage",
-      "tabs",
       "sidePanel"
     ]
   }

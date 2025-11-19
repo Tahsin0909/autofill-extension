@@ -22,6 +22,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="pt1:r1:3:pt1:it18::content"]',
                     'input[id="pt1:r1:4:pt1:it18::content"]',
                     'input[id="pt1:r1:1:pt1:it18::content"]',
+                    'input[id="pt1:r1:9:pt1:it18::content"]',
                 ]
                 propertyAddress.forEach((selector) => {
                     const elements = document.querySelectorAll(selector)
@@ -44,6 +45,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="pt1:r1:4:pt1:it7::content"]',
                     'input[id="pt1:r1:1:pt1:it7::content"]',
                     'input[id="r1:3:it2::content"]',
+                    'input[id="pt1:r1:9:pt1:it7::content"]',
                 ]
                 propertyNumber.forEach((selector) => {
                     const elements = document.querySelectorAll(selector)
@@ -66,6 +68,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="pt1:r1:1:pt1:it17::content"]',
                     'input[id="r1:3:it3::content"]',
                     'input[id="r1:3:it3::content"]',
+                    'input[id="pt1:r1:9:pt1:it17::content"]',
 
                 ]
                 municipalityCommunity.forEach((selector) => {
@@ -89,6 +92,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="pt1:r1:4:pt1:it19::content"]',
                     'input[id="pt1:r1:1:pt1:it19::content"]',
                     'input[id="r1:3:it18::content"]',
+                    'input[id="pt1:r1:9:pt1:it19::content"]',
 
                 ]
                 propertyPostalCode.forEach((selector) => {
@@ -112,6 +116,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="pt1:r1:3:pt1:it15::content"]',
                     'input[id="pt1:r1:1:pt1:it15::content"]',
                     'input[id="r1:3:it19::content"]',
+                    'input[id="pt1:r1:9:pt1:it15::content"]',
 
                 ]
                 ot.forEach((selector) => {
@@ -162,6 +167,8 @@ export const servicesOneFill = async (data: any) => {
                     'textarea[id="r1:0:it28::content"]',
                     'textarea[id="pt1:r1:1:pt1:it16::content"]',
                     'textarea[id="pt1:r1:4:pt1:it16::content"]',
+                    'textarea[id="pt1:r1:6:pt1:it16::content"]',
+                    'textarea[id="pt1:r1:9:pt1:it16::content"]',
                     // id="r1:1:it28::content"
                     // `textarea[name="r1:2:it28"]`
                 ]
@@ -369,6 +376,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="pt1:r1:12:pt1:it13::content"]',
                     'input[id="pt1:r1:4:pt1:it13::content"]',
                     'input[id="pt1:r1:1:pt1:it13::content"]',
+                    'input[id="pt1:r1:9:pt1:it13::content"]',
                     // `textarea[name="r1:2:it28"]`
                 ]
                 kaek.forEach((selector) => {
@@ -438,12 +446,10 @@ export const servicesOneFill = async (data: any) => {
                 //Owners
 
 
-                // find ALL owner row prefixes
-                const allInputs = Array.from(document.querySelectorAll('input[id*=":it3::content"]')); // last name is stable field
+                const allInputs = Array.from(document.querySelectorAll('input[id*=":it3::content"]'));
                 const rowPrefixes = [];
 
                 allInputs.forEach(input => {
-                    // example: id = "pt1:r1:7:pt1:pc1:t2:4:it3::content"
                     const match = input.id.match(/^(.*?:t2:\d+:)/);
                     if (match && !rowPrefixes.includes(match[1])) {
                         rowPrefixes.push(match[1]);
@@ -452,12 +458,19 @@ export const servicesOneFill = async (data: any) => {
 
                 data.owners.forEach((owner, idx) => {
                     const prefix = rowPrefixes[idx];
-                    if (!prefix) return; // if UI has fewer rows, skip
+                    if (!prefix) return;
 
                     const fill = (field, value) => {
                         const selector = `input[id="${prefix}${field}"]`;
                         const el = document.querySelector(selector);
+
                         if (el instanceof HTMLInputElement) {
+                            // keep old value
+                            if (el.value && el.value.trim() !== "") {
+                                return; // skip filling
+                            }
+
+                            // fill only empty fields
                             el.value = value;
                             el.dispatchEvent(new Event("input", { bubbles: true }));
                             el.dispatchEvent(new Event("change", { bubbles: true }));
@@ -473,63 +486,13 @@ export const servicesOneFill = async (data: any) => {
                     fill("it5::content", owner.postalCode || "");
                     fill("it15::content", owner.phone || "");
                     fill("it1::content", owner.email || "");
-                    fill("it9::content", owner.afm || "");
+                    fill("it9::content", owner.taxIdentificationNumber || "");
+                    fill("it12::content", owner.idNumber || "");
                 });
+                // pt1:r1:4:pt1:pc1:t2:1:it3::content
+                // id="pt1:r1:8:pt1:pc1:t2:0:it9::content"
 
 
-                // experimenting 
-                // find delect value with id 
-                // function setSelectValueById(selectId, newValue) {
-                //   const selectElement = document.getElementById(selectId);
-                //   if (selectElement instanceof HTMLSelectElement) {
-                //     selectElement.value = newValue;
-                //     selectElement.dispatchEvent(new Event('change', { bubbles: true }));
-                //     console.log(`Select with ID '${selectId}' value set to '${newValue}'.`);
-                //     return true;
-                //   }
-                //   console.error(`Select element with ID '${selectId}' not found.`);
-                //   return false;
-                // }
-
-                // const formSelectors2 = [
-                //   'select[id="pt1:r1:3:pt1:pc1:t2:0:soc1::content"]'
-                // ];
-
-                // formSelectors2.forEach((selector) => {
-                //   const elements = document.querySelectorAll(selector);
-                //   console.log("elements", elements);
-
-                //   elements.forEach((el) => {
-                //     if (el instanceof HTMLSelectElement) {
-                //       // set value directly
-                //       setSelectValueById(el.id, "3");
-                //     } else if (el instanceof HTMLInputElement) {
-                //       el.value = "someValue";
-                //       el.dispatchEvent(new Event("input", { bubbles: true }));
-                //       el.dispatchEvent(new Event("change", { bubbles: true }));
-                //     }
-                //   });
-                // });
-
-                // const formSelectors3 = [
-                //   'select[id="pt1:r1:3:pt1:pc1:t2:0:soc2::content"]'
-                // ];
-
-                // formSelectors3.forEach((selector) => {
-                //   const elements = document.querySelectorAll(selector);
-                //   console.log("elements", elements);
-
-                //   elements.forEach((el) => {
-                //     if (el instanceof HTMLSelectElement) {
-                //       // set value directly
-                //       setSelectValueById(el.id, "3");
-                //     } else if (el instanceof HTMLInputElement) {
-                //       el.value = "someValue";
-                //       el.dispatchEvent(new Event("input", { bubbles: true }));
-                //       el.dispatchEvent(new Event("change", { bubbles: true }));
-                //     }
-                //   });
-                // });
                 // ΥΠ.ΕΝ
                 // issuingAuthority
                 // id="pt1:r1:3:pt1:pc1:t2:0:it4::content"
@@ -874,6 +837,30 @@ export const servicesOneFill = async (data: any) => {
         //id="r1:3:pc1:t2:0:id6::content" -> dateIssuanceBuildingPermit
         // id="r1:3:pc1:t2:0:it29::content" -> static text -> ΟΙΚΟΔΟΜΙΚΗ ΑΔΕΙΑ
         // id="r1:3:pc1:t2:0:it30::content" -Z> issuingAuthority
+
+
+        // 3rd steps 
+        const selectIds = [
+            'select[id="pt1:r1:5:pt1:pc1:t2:0:soc1::content"]',
+            'select[id="pt1:r1:4:pt1:pc1:t2:0:soc1::content"]',
+        ];
+
+        selectIds.forEach((selector) => {
+            const elements = document.querySelectorAll(selector);
+
+            elements.forEach((element) => {
+                if (element instanceof HTMLSelectElement) {
+
+                    // select first option
+                    element.selectedIndex = 0;
+
+                    element.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+            });
+        });
+
+
+
     } catch (error) {
         console.error("Autofill failed:", error)
         alert("Autofill failed. Make sure you're on a page with forms.")
