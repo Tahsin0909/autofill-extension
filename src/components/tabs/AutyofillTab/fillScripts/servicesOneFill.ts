@@ -18,11 +18,13 @@ export const servicesOneFill = async (data: any) => {
 
 
                 // Οδός	
+                //ok
                 const propertyAddress = [
                     'input[id="pt1:r1:3:pt1:it18::content"]',
                     'input[id="pt1:r1:4:pt1:it18::content"]',
                     'input[id="pt1:r1:1:pt1:it18::content"]',
                     'input[id="pt1:r1:9:pt1:it18::content"]',
+                    'input[id="pt1:r1:5:pt1:it18::content"]',
                 ]
                 propertyAddress.forEach((selector) => {
                     const elements = document.querySelectorAll(selector)
@@ -37,6 +39,9 @@ export const servicesOneFill = async (data: any) => {
                         }
                     })
                 })
+                // Οδός	
+                //ok
+
 
 
                 // Αρ. από	
@@ -46,6 +51,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="pt1:r1:1:pt1:it7::content"]',
                     'input[id="r1:3:it2::content"]',
                     'input[id="pt1:r1:9:pt1:it7::content"]',
+                    'input[id="pt1:r1:5:pt1:it7::content"]',
                 ]
                 propertyNumber.forEach((selector) => {
                     const elements = document.querySelectorAll(selector)
@@ -69,6 +75,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="r1:3:it3::content"]',
                     'input[id="r1:3:it3::content"]',
                     'input[id="pt1:r1:9:pt1:it17::content"]',
+                    'input[id="pt1:r1:5:pt1:it17::content"]',
 
                 ]
                 municipalityCommunity.forEach((selector) => {
@@ -93,6 +100,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="pt1:r1:1:pt1:it19::content"]',
                     'input[id="r1:3:it18::content"]',
                     'input[id="pt1:r1:9:pt1:it19::content"]',
+                    'input[id="pt1:r1:5:pt1:it19::content"]',
 
                 ]
                 propertyPostalCode.forEach((selector) => {
@@ -110,13 +118,13 @@ export const servicesOneFill = async (data: any) => {
                 })
 
 
-                // todo 
-                // 1. ot form new api (kaek lookup)
+
                 const ot = [
                     'input[id="pt1:r1:3:pt1:it15::content"]',
                     'input[id="pt1:r1:1:pt1:it15::content"]',
                     'input[id="r1:3:it19::content"]',
                     'input[id="pt1:r1:9:pt1:it15::content"]',
+                    'input[id="pt1:r1:5:pt1:it15::content"]',
 
                 ]
                 ot.forEach((selector) => {
@@ -133,28 +141,25 @@ export const servicesOneFill = async (data: any) => {
                     })
                 })
 
-                //to-do
-                // id="r1:3:it17::content"
-
                 // Δημοτική Ενότητα / Περιοχή	
-                //issues here also 
-                // const propertyPlace = [
-                //   'textarea[id="pt1:r1:4:pt1:it12::content"]',
-                //   'textarea[id="pt1:r1:1:pt1:it12::content"]',
-                // ]
-                // propertyPlace.forEach((selector) => {
-                //   const elements = document.querySelectorAll(selector)
-                //   elements.forEach((element) => {
-                //     if (
-                //       element instanceof HTMLInputElement ||
-                //       element instanceof HTMLTextAreaElement
-                //     ) {
-                //       element.value = data.propertyPlace || "No Value Found"
-                //       element.dispatchEvent(new Event("input", { bubbles: true }))
-                //       element.dispatchEvent(new Event("change", { bubbles: true }))
-                //     }
-                //   })
-                // })
+                const propertyPlace = [
+                    'textarea[id="pt1:r1:4:pt1:it12::content"]',
+                    'textarea[id="pt1:r1:1:pt1:it12::content"]',
+                    'textarea[id="pt1:r1:5:pt1:it12::content"]',
+                ]
+                propertyPlace.forEach((selector) => {
+                    const elements = document.querySelectorAll(selector)
+                    elements.forEach((element) => {
+                        if (
+                            element instanceof HTMLInputElement ||
+                            element instanceof HTMLTextAreaElement
+                        ) {
+                            element.value = data.propertyPlace || "No Value Found"
+                            element.dispatchEvent(new Event("input", { bubbles: true }))
+                            element.dispatchEvent(new Event("change", { bubbles: true }))
+                        }
+                    })
+                })
 
 
                 // project_description
@@ -377,6 +382,7 @@ export const servicesOneFill = async (data: any) => {
                     'input[id="pt1:r1:4:pt1:it13::content"]',
                     'input[id="pt1:r1:1:pt1:it13::content"]',
                     'input[id="pt1:r1:9:pt1:it13::content"]',
+                    'input[id="pt1:r1:5:pt1:it13::content"]',
                     // `textarea[name="r1:2:it28"]`
                 ]
                 kaek.forEach((selector) => {
@@ -477,17 +483,18 @@ export const servicesOneFill = async (data: any) => {
                         }
                     };
 
-                    fill("it6::content", owner.firstName || "");
-                    fill("it3::content", owner.lastName || "");
-                    fill("it4::content", owner.fatherFirstLastName || "");
-                    fill("it7::content", owner.motherFirstLastName || "");
-                    fill("it2::content", owner.addressNumber || "");
-                    fill("it11::content", owner.city || "");
-                    fill("it5::content", owner.postalCode || "");
-                    fill("it15::content", owner.phone || "");
-                    fill("it1::content", owner.email || "");
-                    fill("it9::content", owner.taxIdentificationNumber || "");
-                    fill("it12::content", owner.idNumber || "");
+                    // Access array elements by index instead of property names
+                    fill("it6::content", owner[0] || "");  // firstName
+                    fill("it3::content", owner[1] || "");  // lastName
+                    fill("it4::content", owner[2] || "");  // fatherFirstLastName
+                    fill("it7::content", owner[3] || "");  // motherFirstLastName
+                    fill("it2::content", owner[4] || "");  // addressNumber
+                    fill("it11::content", owner[5] || ""); // city
+                    fill("it5::content", owner[6] || "");  // postalCode
+                    fill("it15::content", owner[7] || ""); // phone
+                    fill("it1::content", owner[8] || "");  // email
+                    fill("it9::content", owner[9] || "");  // taxIdentificationNumber
+                    fill("it12::content", owner[10] || ""); // idNumber
                 });
                 // pt1:r1:4:pt1:pc1:t2:1:it3::content
                 // id="pt1:r1:8:pt1:pc1:t2:0:it9::content"
@@ -585,20 +592,21 @@ export const servicesOneFill = async (data: any) => {
                         }
                     });
                 });
-                const propertyPlace = [
-                    'input[id="r1:3:it15::content"]',
-                    // `textarea[name="r1:2:it28"]`
-                ]
-                propertyPlace.forEach((selector) => {
-                    const elements = document.querySelectorAll(selector)
-                    elements.forEach((element) => {
-                        if (element instanceof HTMLInputElement) {
-                            element.value = data?.propertyPlace || ""
-                            element.dispatchEvent(new Event("input", { bubbles: true }))
-                            element.dispatchEvent(new Event("change", { bubbles: true }))
-                        }
-                    })
-                })
+
+                // const propertyPlace = [
+                //     'input[id="r1:3:it15::content"]',
+                //     // `textarea[name="r1:2:it28"]`
+                // ]
+                // propertyPlace.forEach((selector) => {
+                //     const elements = document.querySelectorAll(selector)
+                //     elements.forEach((element) => {
+                //         if (element instanceof HTMLInputElement) {
+                //             element.value = data?.propertyPlace || ""
+                //             element.dispatchEvent(new Event("input", { bubbles: true }))
+                //             element.dispatchEvent(new Event("change", { bubbles: true }))
+                //         }
+                //     })
+                // })
 
                 // project_description_htk_plot
                 // Περιγραφή Οικοπέδου/Γηπέδου
