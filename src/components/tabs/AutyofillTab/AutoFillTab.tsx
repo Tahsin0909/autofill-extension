@@ -23,6 +23,15 @@ const AutoFillTab = ({
     "$1••••••$2"
   )
 
+  const servicesThree = (data: any) => {
+    console.log("all called")
+    htkOwnersFill(data)
+    htkPeaFill(data)
+    htkPermitsFill(data)
+    htkPlotFill(data)
+    htkPropertyFill(data)
+    htkUsesFill(data)
+  }
   const handleAutofill = () => {
     console.log("Clicked");
     switch (state?.data?.data.service?.serviceTitle) {
@@ -37,7 +46,7 @@ const AutoFillTab = ({
         break;
 
       case "Service-3":
-        htkUsesFill(state?.data?.data);
+        servicesThree(state?.data?.data);
         console.log("Service-3");
         break;
       case "Service-4":
