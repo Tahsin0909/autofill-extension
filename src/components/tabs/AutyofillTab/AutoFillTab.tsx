@@ -2,12 +2,10 @@ import React from "react"
 
 import type { FetchState } from "~interfaces/global"
 
-import { autofillCredential } from "./FillScript"
 import AutoFillMap from "../autoFillMap/AutoFillMap"
 import { servicesOneFill } from "./fillScripts/servicesOneFill"
+import { htkOwnersFill, htkPeaFill, htkPermitsFill, htkPlotFill, htkPropertyFill, htkUsesFill } from "./fillScripts/servicesThreeFill"
 import { servicesTwoFill } from "./fillScripts/servicesTwoFill"
-import { servicesThreeFill } from "./fillScripts/servicesThreeFill"
-import AllData from "../allData/AllData"
 
 const AutoFillTab = ({
   state,
@@ -39,7 +37,7 @@ const AutoFillTab = ({
         break;
 
       case "Service-3":
-        servicesThreeFill(state?.data?.data);
+        htkUsesFill(state?.data?.data);
         console.log("Service-3");
         break;
       case "Service-4":
@@ -51,9 +49,6 @@ const AutoFillTab = ({
         console.log("No Service matched");
     }
   };
-
-
-
 
 
   const deleteData = async () => {

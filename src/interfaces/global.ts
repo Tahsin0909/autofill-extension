@@ -5,3 +5,5 @@ export interface FetchState {
 }
 
 export type Credential = any
+
+// chrome-extension://khpfenagnnfbafbbhfchbhhgdilmhmaa

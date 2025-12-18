@@ -9,6 +9,7 @@
     "build": "plasmo build",
     "package": "plasmo package"
   },
+  
   "dependencies": {
     "plasmo": "0.90.5",
     "react": "18.2.0",
@@ -30,6 +31,7 @@
     "host_permissions": [
       "https://*/*",
       "http://172.252.13.71:8145/*",
+      "http://31.97.37.168:8145//*",
       "https://api.buildai.gr/*",
       "http://10.0.80.94"
     ],
@@ -39,7 +41,9 @@
     "permissions": [
       "scripting",
       "storage",
-      "sidePanel"
-    ]
+      "sidePanel",
+      "tabs"
+    ],
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtkP7iG3wCDMUrU73wl1PW5wglJ/GrYO5tFnUo4/jRD8AicnUoJhwg8lDLpJlJ/7hBt7tZmOuA/ylk3MrmdDOqfXEnpjsfiKu9FR4cTQn4fXi6uj4iiOHS7sCwwgWfADPLR0399/e81EIRGGbqB9JcxCzI0cuYnW955yLrDwApNIrMiIRws2fJfSu27+vH6uy/XfkfCM+i8CzvZaQUwsZzvYqsSgc5DNAmZo4nkg+xCYlL1i56KegBpjX2o5+mdCbvJR0VDZJczDSOEtyoWh/V9aKxDRLIOkEy2tsed6qyn2wuEz+sCR8MTenA3m2Uz5yJ2eqesmR7rSteiAX7GS0pwIDAQAB"
   }
 }
