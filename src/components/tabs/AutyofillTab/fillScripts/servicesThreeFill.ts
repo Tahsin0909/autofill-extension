@@ -967,7 +967,7 @@ export const htkPlotFill = async (data: any) => {
 
                 let count = 0;
                 const divisionValue = getDivisionValue();
-                console.log(`Διαίρεση: ${divisionValue === "1" ? "ΜΕ σύσταση οριζοντίου" : "ΧΩΡΙΣ σύσταση"}`);
+                // console.log(`Διαίρεση: ${divisionValue === "1" ? "ΜΕ σύσταση οριζοντίου" : "ΧΩΡΙΣ σύσταση"}`);
 
                 const fields = [
                     { row: 10, value: plotData.projectDescriptionHtkPlot, name: "Περιγραφή" },
@@ -991,12 +991,12 @@ export const htkPlotFill = async (data: any) => {
                     if (value === undefined || value === null || value === "") return;
                     const field = getFieldByRowIndex(row);
                     if (field && setValue(field, String(value))) {
-                        console.log(`✓ ${name}: ${value}`);
+                        // console.log(`✓ ${name}: ${value}`);
                         count++;
                     }
                 });
 
-                console.log(`\n✅ HTK ΟΙΚΟΠΕΔΟ - Done! (${count} πεδία)`);
+                // console.log(`\n✅ HTK ΟΙΚΟΠΕΔΟ - Done! (${count} πεδία)`);
             },
             args: [data]
         });
@@ -1112,12 +1112,12 @@ export const htkPropertyFill = async (data: any) => {
                     if (value === undefined || value === null || value === "") return;
                     const field = getFieldByRowIndex(row);
                     if (field && setValue(field, String(value))) {
-                        console.log(`✓ ${name}: ${String(value).substring(0, 50)}...`);
+                        // console.log(`✓ ${name}: ${String(value).substring(0, 50)}...`);
                         count++;
                     }
                 });
 
-                console.log(`\n✅ HTK ΙΔΙΟΚΤΗΣΙΑ - Done! (${count} πεδία)`);
+                // console.log(`\n✅ HTK ΙΔΙΟΚΤΗΣΙΑ - Done! (${count} πεδία)`);
             },
             args: [data]
         });
@@ -1148,7 +1148,7 @@ export const htkOwnersFill = async (data: any) => {
                 const owners = data2.owners || [];
 
                 if (!owners.length) {
-                    console.log("⚠ Δεν υπάρχουν ιδιοκτήτες");
+                    // console.log("⚠ Δεν υπάρχουν ιδιοκτήτες");
                     return;
                 }
 
@@ -1208,15 +1208,15 @@ export const htkOwnersFill = async (data: any) => {
                 }
 
                 if ((window as any).ownerIndex >= owners.length) {
-                    console.log("✅ Όλοι οι ιδιοκτήτες έχουν μπει!");
-                    console.log("Για reset: window.ownerIndex = 0");
+                    // console.log("✅ Όλοι οι ιδιοκτήτες έχουν μπει!");
+                    // console.log("Για reset: window.ownerIndex = 0");
                     (window as any).ownerIndex = 0;
                     return;
                 }
 
                 const o = owners[(window as any).ownerIndex];
                 const isFirst = (window as any).ownerIndex === 0;
-                console.log(`Ιδιοκτήτης ${(window as any).ownerIndex + 1}/${owners.length}: ${o.lastName} ${o.firstName}`);
+                // console.log(`Ιδιοκτήτης ${(window as any).ownerIndex + 1}/${owners.length}: ${o.lastName} ${o.firstName}`);
 
                 // Find or create row
                 let row = findEmptyRow();
@@ -1253,12 +1253,13 @@ export const htkOwnersFill = async (data: any) => {
 
                 (window as any).ownerIndex++;
 
-                console.log(`✅ Done!`);
+                // console.log(`✅ Done!`);
                 if ((window as any).ownerIndex < owners.length) {
-                    console.log(`👉 Τρέξε ΞΑΝΑ για ιδιοκτήτη ${(window as any).ownerIndex + 1}/${owners.length}`);
-                } else {
-                    console.log("✅ ΟΛΟΙ ΟΙ ΙΔΙΟΚΤΗΤΕΣ ΤΕΛΟΣ!");
+                    // console.log(`👉 Τρέξε ΞΑΝΑ για ιδιοκτήτη ${(window as any).ownerIndex + 1}/${owners.length}`);
                 }
+                // else {
+                //     console.log("✅ ΟΛΟΙ ΟΙ ΙΔΙΟΚΤΗΤΕΣ ΤΕΛΟΣ!");
+                // }
             },
             args: [data]
         });
@@ -1393,12 +1394,12 @@ export const htkPermitsFill = async (data: any) => {
                 }
 
                 if (!permits.length) {
-                    console.log("⚠ Δεν υπάρχουν πράξεις για καταχώρηση");
+                    // console.log("⚠ Δεν υπάρχουν πράξεις για καταχώρηση");
                     return;
                 }
 
-                console.log(`📋 Βρέθηκαν ${permits.length} πράξεις για καταχώρηση`);
-                permits.forEach((p, i) => console.log(`  ${i + 1}. ${p.title} - ${p.number}`));
+                // console.log(`📋 Βρέθηκαν ${permits.length} πράξεις για καταχώρηση`);
+                // permits.forEach((p, i) => console.log(`  ${i + 1}. ${p.title} - ${p.number}`));
 
                 const findPlusButton = (): any => {
                     const imgs = Array.from(document.querySelectorAll("img"));
@@ -1440,14 +1441,14 @@ export const htkPermitsFill = async (data: any) => {
                 }
 
                 if ((window as any).permitIndex >= permits.length) {
-                    console.log("✅ Όλες οι πράξεις έχουν μπει!");
-                    console.log("Για reset: window.permitIndex = 0");
+                    // console.log("✅ Όλες οι πράξεις έχουν μπει!");
+                    // console.log("Για reset: window.permitIndex = 0");
                     (window as any).permitIndex = 0;
                     return;
                 }
 
                 const p = permits[(window as any).permitIndex];
-                console.log(`\nΠράξη ${(window as any).permitIndex + 1}/${permits.length}: ${p.title}`);
+                // console.log(`\nΠράξη ${(window as any).permitIndex + 1}/${permits.length}: ${p.title}`);
 
                 // Find or create row
                 let row = findEmptyRow();
@@ -1476,12 +1477,12 @@ export const htkPermitsFill = async (data: any) => {
 
                 (window as any).permitIndex++;
 
-                console.log(`✅ Done!`);
-                if ((window as any).permitIndex < permits.length) {
-                    console.log(`👉 Τρέξε ΞΑΝΑ για πράξη ${(window as any).permitIndex + 1}/${permits.length}`);
-                } else {
-                    console.log("✅ ΟΛΕΣ ΟΙ ΠΡΑΞΕΙΣ ΤΕΛΟΣ!");
-                }
+                // console.log(`✅ Done!`);
+                // if ((window as any).permitIndex < permits.length) {
+                //     console.log(`👉 Τρέξε ΞΑΝΑ για πράξη ${(window as any).permitIndex + 1}/${permits.length}`);
+                // } else {
+                //     console.log("✅ ΟΛΕΣ ΟΙ ΠΡΑΞΕΙΣ ΤΕΛΟΣ!");
+                // }
             },
             args: [data]
         });
@@ -1611,12 +1612,12 @@ export const htkUsesFill = async (data: any) => {
                 }
 
                 if (!uses.length) {
-                    console.log("⚠ Δεν υπάρχουν χρήσεις για καταχώρηση");
+                    // console.log("⚠ Δεν υπάρχουν χρήσεις για καταχώρηση");
                     return;
                 }
 
-                console.log(`📋 Βρέθηκαν ${uses.length} χρήσεις για καταχώρηση`);
-                uses.forEach((u, i) => console.log(`  ${i + 1}. Type:${u.type} - ${u.description} - ${u.area} τμ`));
+                // console.log(`📋 Βρέθηκαν ${uses.length} χρήσεις για καταχώρηση`); 
+                // uses.forEach((u, i) => console.log(`  ${i + 1}. Type:${u.type} - ${u.description} - ${u.area} τμ`)); 
 
                 const findPlusButton = (): any => {
                     const imgs = Array.from(document.querySelectorAll("img"));
@@ -1658,14 +1659,14 @@ export const htkUsesFill = async (data: any) => {
                 }
 
                 if ((window as any).useIndex >= uses.length) {
-                    console.log("✅ Όλες οι χρήσεις έχουν μπει!");
-                    console.log("Για reset: window.useIndex = 0");
+                    // console.log("✅ Όλες οι χρήσεις έχουν μπει!"); 
+                    // console.log("Για reset: window.useIndex = 0");
                     (window as any).useIndex = 0;
                     return;
                 }
 
                 const u = uses[(window as any).useIndex];
-                console.log(`\nΧρήση ${(window as any).useIndex + 1}/${uses.length}: ${u.description}`);
+                // console.log(`\nΧρήση ${(window as any).useIndex + 1}/${uses.length}: ${u.description}`); 
 
                 // Find or create row
                 let row = findEmptyRow();
@@ -1692,12 +1693,12 @@ export const htkUsesFill = async (data: any) => {
 
                 (window as any).useIndex++;
 
-                console.log(`✅ Done!`);
-                if ((window as any).useIndex < uses.length) {
-                    console.log(`👉 Τρέξε ΞΑΝΑ για χρήση ${(window as any).useIndex + 1}/${uses.length}`);
-                } else {
-                    console.log("✅ ΟΛΕΣ ΟΙ ΧΡΗΣΕΙΣ ΤΕΛΟΣ!");
-                }
+                // console.log(`✅ Done!`); 
+                // if ((window as any).useIndex < uses.length) {
+                //     console.log(`👉 Τρέξε ΞΑΝΑ για χρήση ${(window as any).useIndex + 1}/${uses.length}`); 
+                // } else {
+                //     console.log("✅ ΟΛΕΣ ΟΙ ΧΡΗΣΕΙΣ ΤΕΛΟΣ!");
+                // }
             },
             args: [data]
         });
@@ -1726,7 +1727,7 @@ export const htkPeaFill = async (data: any) => {
             target: { tabId: tab.id },
             func: async (data2: any) => {
                 if (!data2.peaProtocolNumber && !data2.peaIssueDate && !data2.peaSecurityNumber) {
-                    console.log("⚠ Δεν υπάρχουν στοιχεία Π.Ε.Α. για καταχώρηση");
+                    // console.log("⚠ Δεν υπάρχουν στοιχεία Π.Ε.Α. για καταχώρηση"); 
                     return;
                 }
 
@@ -1802,7 +1803,7 @@ export const htkPeaFill = async (data: any) => {
                 setVal(cells[4], data2.peaEstimatedAnnualPrimaryEnergyConsumptionKwhM2 || "");
                 setVal(cells[5], data2.peaEstimatedAnnualCo2EmissionsKgM2 || "");
 
-                console.log("✅ HTK Π.Ε.Α. - Done!");
+                // console.log("✅ HTK Π.Ε.Α. - Done!"); 
             },
             args: [data]
         });

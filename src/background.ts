@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     (async () => {
       try {
-        console.log("Executing script in tab:", tabId);
+        // console.log("Executing script in tab:", tabId);
 
         // Execute script in all frames
         await chrome.scripting.executeScript({
@@ -41,7 +41,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               const textareaCount = findAndFill('textarea[id*="GisLocation"]', true);
               const inputCount = findAndFill('input[name="GisLocation"]', false);
 
-              console.log(`✅ Updated ${textareaCount} textareas and ${inputCount} inputs`);
+              // console.log(`✅ Updated ${textareaCount} textareas and ${inputCount} inputs`);
 
               if (textareaCount > 0 || inputCount > 0) {
                 // Only alert in the main frame

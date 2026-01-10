@@ -786,7 +786,7 @@ export const servicesOneFill = async (data: any) => {
               ΜΕΡΟΣ 1: ΒΑΣΙΚΑ ΣΤΟΙΧΕΙΑ
             ========================================= */
 
-            console.log("1. Basic...")
+            // console.log("1. Basic...")
 
             const basicFields = [
                 ["Περιγραφή Έργου/Εγκατάστασης", data.projectDescriptions],
@@ -808,7 +808,7 @@ export const servicesOneFill = async (data: any) => {
               ΜΕΡΟΣ 2: ΣΤΟΙΧΕΙΑ ΥΦΙΣΤΑΜΕΝΟΥ
             ========================================= */
 
-            console.log("2. Permits...")
+            // console.log("2. Permits...") 
             const permits = [
                 {
                     type: "Οικοδ. Άδεια",
@@ -853,12 +853,12 @@ export const servicesOneFill = async (data: any) => {
               ΜΕΡΟΣ 3: ΣΤΟΙΧΕΙΑ ΚΥΡΙΟΥ ΤΟΥ ΕΡΓΟΥ
             ========================================= */
 
-            console.log("3. Owners...")
+            // console.log("3. Owners...") 
             const owners = data.owners || []
             const oRows = getOwnerRows()
 
-            console.log("  Available rows: " + oRows.length)
-            console.log("  Total owners: " + owners.length)
+            // console.log("  Available rows: " + oRows.length)
+            // console.log("  Total owners: " + owners.length)
 
             if (oRows.length < owners.length) {
                 console.warn("  ⚠ Please add " + (owners.length - oRows.length) + " more owner rows!")
@@ -870,11 +870,11 @@ export const servicesOneFill = async (data: any) => {
                 const owner = owners[i]
                 const row = oRows[i]
 
-                console.log("  Filling owner " + (i + 1) + ": " + owner.firstName + " " + owner.lastName)
+                // console.log("  Filling owner " + (i + 1) + ": " + owner.firstName + " " + owner.lastName)
                 fillOwnerRow(row, owner)
             }
 
-            console.log("\n✅ COMPLETE!")
+            // console.log("\n✅ COMPLETE!") 
         }
     })
 }

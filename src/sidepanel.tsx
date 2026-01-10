@@ -21,9 +21,9 @@ function IndexSidePanel() {
   const loadCredentials = async () => {
     try {
       const result = await chrome.storage.local.get(["data"])
-      console.log(result)
+      // console.log(result)
       const savedData = result?.data || null
-      console.log(savedData)
+      // console.log(savedData)
       setState((prev) => ({ ...prev, data: savedData }))
     } catch (error) {
       console.error("Failed to load credentials:", error)

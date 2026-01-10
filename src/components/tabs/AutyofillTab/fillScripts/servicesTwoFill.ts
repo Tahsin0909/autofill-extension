@@ -906,7 +906,7 @@ export const executeN4495_BasicInfo = async (data: any) => {
         await chrome.scripting.executeScript({
             target: { tabId: tab.id },
             func: (data) => {
-                console.log("🚀 N.4495 - Βασικά Στοιχεία", data);
+                // console.log("🚀 N.4495 - Βασικά Στοιχεία", data); 
 
                 // Greek municipality conversion (genitive → nominative)
                 const municipalityExceptions: Record<string, string> = {
@@ -1013,14 +1013,14 @@ export const executeN4495_BasicInfo = async (data: any) => {
 
                     const field = findFieldByLabel(label);
                     if (field && setValue(field, value)) {
-                        console.log(`✅ ${label}: ${value}`);
+                        // console.log(`✅ ${label}: ${value}`); 
                         count++;
                     } else {
                         console.warn(`❌ Field not found: ${label}`);
                     }
                 });
 
-                console.log(`✅ N.4495 Basic Info Done! (${count}/${fields.length} fields)`);
+                // console.log(`✅ N.4495 Basic Info Done! (${count}/${fields.length} fields)`); 
             },
             args: [data]
         });
@@ -1049,7 +1049,7 @@ export const executeN4495_Violations = async (data: any) => {
         await chrome.scripting.executeScript({
             target: { tabId: tab.id },
             func: (data) => {
-                console.log("🚀 N.4495 - Παραβάσεις", data);
+                // console.log("🚀 N.4495 - Παραβάσεις", data); 
 
                 let violationsData = [
                     {
@@ -1145,20 +1145,20 @@ export const executeN4495_Violations = async (data: any) => {
                     const idx = (window as any).violationIndex;
 
                     if (idx >= violationsData.length) {
-                        console.log("✅ All violations processed!");
+                        // console.log("✅ All violations processed!"); 
                         (window as any).violationIndex = 0;
                         return;
                     }
 
                     const v = violationsData[idx];
-                    console.log(`📋 Violation ${idx + 1}/${violationsData.length}: ${v.id}`);
+                    // console.log(`📋 Violation ${idx + 1}/${violationsData.length}: ${v.id}`); 
 
                     let descriptionField = findEmptyForm();
 
                     if (!descriptionField) {
                         const btn = findPlusButton();
                         if (btn) {
-                            console.log("🔵 Clicking plus button...");
+                            // console.log("🔵 Clicking plus button..."); 
                             (btn as HTMLElement).click();
                             await new Promise(r => setTimeout(r, 1500));
                         }
@@ -1174,21 +1174,21 @@ export const executeN4495_Violations = async (data: any) => {
 
                     // Περιγραφή παράβασης
                     if (setVal(descriptionField, v.violations.join("\n"))) {
-                        console.log("✅ Περιγραφή παράβασης");
+                        // console.log("✅ Περιγραφή παράβασης"); 
                         count++;
                     }
 
                     // Κατηγορία
                     const categoryField = findFieldByLabelGlobal("Κατηγορία αυθαιρεσίας");
                     if (categoryField && setVal(categoryField, categoryMap[v.category])) {
-                        console.log("✅ Κατηγορία");
+                        // console.log("✅ Κατηγορία"); 
                         count++;
                     }
 
                     // Παλαιότητα
                     const ageField = findFieldByLabelGlobal("Παλαιότητα");
                     if (ageField && setVal(ageField, ageMap[v.age])) {
-                        console.log("✅ Παλαιότητα");
+                        // console.log("✅ Παλαιότητα"); 
                         count++;
                     }
 
@@ -1196,16 +1196,16 @@ export const executeN4495_Violations = async (data: any) => {
                     if (v.otherViolation) {
                         const otherField = findFieldByLabelGlobal("Λοιπές παραβάσεις");
                         if (otherField && setVal(otherField, "1")) {
-                            console.log("✅ Λοιπές παραβάσεις");
+                            // console.log("✅ Λοιπές παραβάσεις"); 
                             count++;
                         }
                     }
 
                     (window as any).violationIndex++;
 
-                    console.log(`✅ Done! (${count} fields)`);
+                    // console.log(`✅ Done! (${count} fields)`); 
                     if ((window as any).violationIndex < violationsData.length) {
-                        console.log(`👉 Run again for violation ${(window as any).violationIndex + 1}`);
+                        // console.log(`👉 Run again for violation ${(window as any).violationIndex + 1}`); 
                     }
                 })();
             },
@@ -1236,7 +1236,7 @@ export const executeN4495_Owners = async (data: any) => {
         await chrome.scripting.executeScript({
             target: { tabId: tab.id },
             func: (data) => {
-                console.log("🚀 N.4495 - Ιδιοκτήτες", data);
+                // console.log("🚀 N.4495 - Ιδιοκτήτες", data); 
 
                 const owners = data.owners || [];
 
@@ -1312,7 +1312,7 @@ export const executeN4495_Owners = async (data: any) => {
                     const idx = (window as any).ownerIndex;
 
                     if (idx >= owners.length) {
-                        console.log("✅ All owners processed!");
+                        // console.log("✅ All owners processed!"); 
                         (window as any).ownerIndex = 0;
                         return;
                     }
@@ -1339,14 +1339,14 @@ export const executeN4495_Owners = async (data: any) => {
                         foreignAfm: ""
                     };
 
-                    console.log(`👤 Owner ${idx + 1}/${owners.length}: ${ownerData.lastName} ${ownerData.firstName}`);
+                    // console.log(`👤 Owner ${idx + 1}/${owners.length}: ${ownerData.lastName} ${ownerData.firstName}`); 
 
                     let row = findEmptyRow();
 
                     if (!row) {
                         const btn = findPlusButton();
                         if (btn) {
-                            console.log("🔵 Clicking plus button...");
+                            // console.log("🔵 Clicking plus button..."); 
                             (btn as HTMLElement).click();
                             await new Promise(r => setTimeout(r, 1500));
                         }
@@ -1382,7 +1382,7 @@ export const executeN4495_Owners = async (data: any) => {
 
                     (window as any).ownerIndex++;
 
-                    console.log(`✅ Done! (${count} fields)`);
+                    // console.log(`✅ Done! (${count} fields)`); 
                     if ((window as any).ownerIndex < owners.length) {
                         console.log(`👉 Run again for owner ${(window as any).ownerIndex + 1}`);
                     }

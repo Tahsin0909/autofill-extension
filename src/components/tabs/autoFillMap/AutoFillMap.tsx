@@ -14,12 +14,12 @@ const AutoFillMap = ({ kaek }: { kaek: string }) => {
 
             // 2) Get geometry_egsa rings
             const rings = result?.geometry_egsa?.rings?.[0] || [];
-            console.log(rings)
+            // console.log(rings)
             // 3) Convert rings to coords string
             const coords = rings
                 .map((pair: number[]) => `${pair[0]} ${pair[1]}`)
                 .join(",\n");
-            console.log(coords)
+            // console.log(coords)
             // 4) Get active tab
             const [tab] = await chrome.tabs.query({
                 active: true,
@@ -33,11 +33,11 @@ const AutoFillMap = ({ kaek }: { kaek: string }) => {
                     coords,
                     tabId: tab.id
                 },
-                (response) => {
-                    if (response?.success) {
-                        console.log("Autofill done");
-                    }
-                }
+                // (response) => {
+                //     if (response?.success) {
+                //         console.log("Autofill done");
+                //     }
+                // }
             );
 
         } catch (error: any) {

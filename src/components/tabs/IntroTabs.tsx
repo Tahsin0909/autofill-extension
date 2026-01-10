@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 
 import Logo from "~components/Logo"
 import PrimaryButton from "~components/shared/PrimaryButton"
@@ -38,12 +38,12 @@ function IntroTabs({
     // const url = `http://10.0.80.94:8145/api/v1/user/${userId}/project/${projectId}`
     // const url = `http://10.0.80.94:8145/api/v1/projects/user-project?hexToken=${userId}&projectCode=${projectId}`
     // http://31.97.37.168:8145/api/v1/projects/user/ba235934/project/7890
-    const url = `http://31.97.37.168:8145/api/v1/projects/user/${userId}/project/${projectId}`
     // const url = `http://31.97.37.168:8145/api/v1/projects/user/${userId}/project/${projectId}`
-    // const url = `https://api.buildai.gr/api/v1/projects/user/${userId}/project/${projectId}`
+    // const url = `http://31.97.37.168:8145/api/v1/projects/user/${userId}/project/${projectId}`
+    const url = `https://api.buildai.gr/api/v1/projects/user/${userId}/project/${projectId}`
 
     chrome.runtime.sendMessage({ type: "FETCH_PROJECT", url }, (response) => {
-      console.log(response)
+      // console.log(response)
       if (response.data.success) {
         setState({ loading: false, error: null, data: response.data })
         chrome.storage.local.set({ data: response.data })
@@ -57,7 +57,7 @@ function IntroTabs({
     })
   }
 
-  console.log(state)
+  // console.log(state)
   return (
     <form
       onSubmit={handleSubmit}

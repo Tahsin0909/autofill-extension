@@ -14,7 +14,7 @@ export const autofillCredential = async (data: any) => {
     await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: (data) => {
-        console.log(data)
+        // console.log(data)
 
 
         // Οδός	
@@ -613,7 +613,7 @@ export const autofillCredential = async (data: any) => {
               // convert dot to comma
               cleanedValue = cleanedValue.replace(".", ",");
 
-              console.log("cleanedValue:", cleanedValue);
+              // console.log("cleanedValue:", cleanedValue);
 
               element.value = cleanedValue;
 
@@ -793,7 +793,7 @@ export const autofillCredential = async (data: any) => {
               // extract only number with comma or dot
               let cleanedValue = rawValue.match(/[\d.,]+/g)?.[0] || "";
 
-              console.log("cleanedValue:", cleanedValue);
+              // console.log("cleanedValue:", cleanedValue); 
 
               element.value = cleanedValue;
 
