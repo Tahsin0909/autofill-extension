@@ -6,6 +6,7 @@ import AutoFillMap from "../autoFillMap/AutoFillMap"
 import { servicesOneFill } from "./fillScripts/servicesOneFill"
 import { htkOwnersFill, htkPeaFill, htkPermitsFill, htkPlotFill, htkPropertyFill, htkUsesFill } from "./fillScripts/servicesThreeFill"
 import { servicesTwoFill } from "./fillScripts/servicesTwoFill"
+import PrimaryButton from "~components/shared/PrimaryButton"
 
 const AutoFillTab = ({
   state,
@@ -76,21 +77,20 @@ const AutoFillTab = ({
       <button
         onClick={deleteData}
         className="text-sm text-blue-600 hover:text-blue-800 mb-3 flex items-center gap-1">
-        ← Back
+        ← Επιστροφή
       </button>
 
       {/* Header */}
       <div className="text-center mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">Data Found!</h2>
+        <h2 className="text-lg font-semibold text-gray-800">Τα δεδομένα βρέθηκαν!</h2>
         <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mx-auto mt-2">
           <span className="text-green-600 text-lg">✓</span>
         </div>
       </div>
-      {state?.data?.data?.kaekProperty.split("/")[0]}
       {/* User Info Card */}
       <div className="bg-gray-50 rounded-lg p-3 mb-4 space-y-2">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500">Name:</span>
+          <span className="text-sm text-gray-500">Όνομα:</span>
           <span className="text-sm font-medium text-gray-800">{name}</span>
         </div>
         <div className="flex justify-between items-center">
@@ -100,15 +100,17 @@ const AutoFillTab = ({
       </div>
 
       {/* Autofill Button */}
-      <button
-        onClick={handleAutofill}
-        className="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium">
-        Autofill Form
-      </button>
+      <PrimaryButton>
+        <div
+          onClick={handleAutofill}
+        >
+          Αυτόματη καταχώρηση στο ΤΕΕ
+        </div>
+      </PrimaryButton>
 
       {/* Small info text */}
       <p className="text-xs text-gray-400 text-center mt-3">
-        This will fill your form automatically
+        Η φόρμα θα συμπληρωθεί αυτόματα.
       </p>
 
       <AutoFillMap kaek={state?.data?.data?.kaekProperty.split("/")[0] as string} />

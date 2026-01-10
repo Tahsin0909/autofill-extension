@@ -1,4 +1,5 @@
 import React from "react";
+import PrimaryButton from "~components/shared/PrimaryButton";
 
 const AutoFillMap = ({ kaek }: { kaek: string }) => {
 
@@ -47,20 +48,22 @@ const AutoFillMap = ({ kaek }: { kaek: string }) => {
     return (
         <div className="relative flex items-center gap-5 my-2 p-3 rounded-lg bg-gray-100">
 
-            <div className="flex flex-col items-start bg-white p-3 rounded-lg shadow w-full">
-                <h2 className="text-sm font-semibold">Map Auto Fill</h2>
+            <div className="flex flex-col items-start bg-white border border-blue-200  p-3 rounded-lg shadow shadow-blue-200 w-full">
+                <h2 className="text-sm font-semibold text-center  w-full mb-2">Εύρεση γεωτεμαχίου στον χάρτη</h2>
 
-                <button
-                    onClick={handleAutoFill}
-                    className="mt-2 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                >
-                    Auto Fill Map
-                </button>
+                <PrimaryButton>
+                    <div
+                        onClick={handleAutoFill}
+                    >
+                        Εντοπισμός γεωτεμαχίου
+                    </div>
+                </PrimaryButton>
+
 
                 {/* <p className="text-sm mt-2 font-medium">KAEK: {kaek}</p> */}
 
                 <p className="text-xs text-gray-500 mt-2">
-                    Click to autofill coordinates
+                    Κάντε κλικ για αυτόματο εντοπισμό του γεωτεμαχίου
                 </p>
             </div>
         </div>

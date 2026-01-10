@@ -1,6 +1,7 @@
 import { useRef, useState } from "react"
 
 import Logo from "~components/Logo"
+import PrimaryButton from "~components/shared/PrimaryButton"
 import type { FetchState } from "~interfaces/global"
 
 function IntroTabs({
@@ -20,13 +21,13 @@ function IntroTabs({
     const rawValue = inputRef.current?.value?.trim()
 
     if (!rawValue) {
-      setState((prev) => ({ ...prev, error: "Please enter a code" }))
+      setState((prev) => ({ ...prev, error: "Παρακαλώ εισάγετε έναν κωδικό" }))
       return
     }
 
     const [userId, projectId] = rawValue.split("-")
     if (!userId || !projectId) {
-      setState((prev) => ({ ...prev, error: "Invalid code format" }))
+      setState((prev) => ({ ...prev, error: "Ο κωδικός δεν έχει τη σωστή μορφή" }))
       return
     }
     setState({ loading: true, error: null, data: null })
@@ -49,7 +50,7 @@ function IntroTabs({
       } else {
         setState({
           loading: false,
-          error: response.data.message || "Unknown error",
+          error: "Δεν βρέθηκε έργο με τα στοιχεία που εισάγατε.",
           data: null
         })
       }
@@ -67,12 +68,12 @@ function IntroTabs({
       </div>
 
       {/* Welcome Message */}
-      <h2 className="text-lg font-semibold">Welcome!</h2>
+      <h2 className="text-base font-semibold">Σύνδεση στο BuildAI TEE</h2>
 
       {/* Input Field (uncontrolled) */}
       <input
         type="text"
-        placeholder="Enter your unique code"
+        placeholder="Εισάγετε τον μοναδικό σας κωδικό"
         ref={inputRef}
         className={`w-full px-3 py-2 border rounded-md outline-none ${state?.error ? "border-red-500" : "border-gray-300"
           }`}
@@ -82,21 +83,21 @@ function IntroTabs({
       {state?.error && <p className="text-sm text-red-500">{state?.error}</p>}
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        className="w-full flex items-center justify-center bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
-        <div
-          className={`${state.loading ? "opacity-100" : "opacity-0"
-            } animate-spin text-center absolute w-4 h-4 border-y-[2px] rounded-full`}
-        />
-        <span className={`${state.loading ? "opacity-0" : "opacity-100"}`}>
-          Enter
-        </span>
-      </button>
+      <PrimaryButton>
+        <div className="flex items-center justify-center">
+          <div
+            className={`${state.loading ? "opacity-100" : "opacity-0"
+              } animate-spin text-center absolute w-4 h-4 border-y-[2px] rounded-full mx-auto`}
+          />
+          <span className={`${state.loading ? "opacity-0" : "opacity-100"}`}>
+            Συνέχεια
+          </span>
+        </div>
+      </PrimaryButton>
 
       {/* Info Message */}
       <p className="text-sm text-gray-500">
-        Please enter the Unique Code or paste
+        Παρακαλώ εισάγετε ή επικολλήστε τον μοναδικό κωδικό σας
       </p>
     </form>
   )
