@@ -2,7 +2,7 @@
   "name": "buildai-tee",
   "displayName": "BuildAI TEE",
   "version": "1.0.0",
-  "description": "A simple autofill browser extension that helps you automate your work by automatically filling forms on supported websites, saving time and reducing manual effort.",
+  "description": "A simple autofill browser extension that fills forms on supported websites to automate tasks, save time, and reduce manual work.",
   "author": "Build Ai Team",
   "scripts": {
     "dev": "plasmo dev",
@@ -28,12 +28,6 @@
     "typescript": "5.3.3"
   },
   "manifest": {
-    "host_permissions": [
-      "https://*/*",
-      "http://172.252.13.71:8145/*",
-      "http://31.97.37.168:8145//*",
-      "https://api.buildai.gr/*"
-    ],
     "background": {
       "service_worker": "background.ts"
     },
