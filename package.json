@@ -34,8 +34,7 @@
     "permissions": [
       "scripting",
       "storage",
-      "sidePanel",
-      "tabs"
+      "sidePanel"
     ]
   }
 }
