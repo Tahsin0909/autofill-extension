@@ -1,5 +1,16 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+
   if (message.type === "FETCH_PROJECT") {
+
+    if (typeof message.url !== "string") {
+      sendResponse({ success: false, error: "Invalid request" })
+      return
+    }
+    if (!message.url.startsWith("https://api.buildai.gr")) {
+      sendResponse({ success: false, error: "Invalid URL" })
+      return
+    }
+
     fetch(message.url)
       .then((res) => res.json())
       .then((data) => sendResponse({ success: true, data }))
@@ -67,6 +78,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     return true; // Keep the message channel open for async response
   }
+  if (chrome.runtime.lastError) {
+    console.error("Injection error:", chrome.runtime.lastError.message)
+    sendResponse({ success: false, error: chrome.runtime.lastError.message })
+    return
+  }
 });
 
 // Listen for extension icon click
@@ -84,3 +100,4 @@ chrome.action.onClicked.addListener((tab) => {
   // Method 2: Fallback for older Chrome versions or other browsers
   chrome.tabs.sendMessage(tab.id, { action: "toggleSidebar" });
 });
+
