@@ -6,7 +6,7 @@ const AutoFillMap = ({ kaek }: { kaek: string }) => {
         try {
             // 1) Fetch data using KAEK
             const res = await fetch(
-                `http://31.97.37.168:8019/api/v1/kaek_lookup?kaek=${kaek}`
+                `https://ai.buildai.gr/api/v1/kaek_lookup?kaek=${kaek}`
             );
 
             const result = await res.json();
