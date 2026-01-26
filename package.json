@@ -28,6 +28,11 @@
     "typescript": "5.3.3"
   },
   "manifest": {
+      "host_permissions": [
+      "https://*/*",
+      "https://api.buildai.gr/*",
+      "https://ai.buildai.gr/*"  
+    ],
     "background": {
       "service_worker": "background.ts"
     },
