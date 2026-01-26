@@ -1,16 +1,5 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-
   if (message.type === "FETCH_PROJECT") {
-
-    if (typeof message.url !== "string") {
-      sendResponse({ success: false, error: "Invalid request" })
-      return
-    }
-    if (!message.url.startsWith("https://api.buildai.gr")) {
-      sendResponse({ success: false, error: "Invalid URL" })
-      return
-    }
-
     fetch(message.url)
       .then((res) => res.json())
       .then((data) => sendResponse({ success: true, data }))
@@ -24,7 +13,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     (async () => {
       try {
-        // console.log("Executing script in tab:", tabId);
+        console.log("Executing script in tab:", tabId);
 
         // Execute script in all frames
         await chrome.scripting.executeScript({
@@ -52,7 +41,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               const textareaCount = findAndFill('textarea[id*="GisLocation"]', true);
               const inputCount = findAndFill('input[name="GisLocation"]', false);
 
-              // console.log(`✅ Updated ${textareaCount} textareas and ${inputCount} inputs`);
+              console.log(`✅ Updated ${textareaCount} textareas and ${inputCount} inputs`);
 
               if (textareaCount > 0 || inputCount > 0) {
                 // Only alert in the main frame
@@ -78,11 +67,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     return true; // Keep the message channel open for async response
   }
-  if (chrome.runtime.lastError) {
-    console.error("Injection error:", chrome.runtime.lastError.message)
-    sendResponse({ success: false, error: chrome.runtime.lastError.message })
-    return
-  }
 });
 
 // Listen for extension icon click
@@ -100,4 +84,3 @@ chrome.action.onClicked.addListener((tab) => {
   // Method 2: Fallback for older Chrome versions or other browsers
   chrome.tabs.sendMessage(tab.id, { action: "toggleSidebar" });
 });
-
