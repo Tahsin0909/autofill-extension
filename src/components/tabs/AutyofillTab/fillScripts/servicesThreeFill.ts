@@ -945,10 +945,13 @@ export const htkPlotFill = async (data: any) => {
                     return kaek.replace(/\/(\d+)$/, "/0");
                 };
 
-                const cleanArea = (area: string): string => {
+                const cleanArea = (area) => {
                     if (!area) return "";
-                    return area.replace(/[^\d.,]/g, "").replace(",", ".");
+                    let cleaned = area.replace(/τ\.?μ\.?/gi, "").trim();
+                    cleaned = cleaned.replace(/[^\d,]/g, "");
+                    return cleaned;
                 };
+
 
                 const setValue = (el: any, value: string): boolean => {
                     if (!el || value === undefined || value === null || value === "") return false;
