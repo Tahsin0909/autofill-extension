@@ -30,6 +30,8 @@ function IndexSidePanel() {
     }
   }
 
+  console.log(state)
+
   return (
     <div className="min-w-[300px] min-h-[300px] p-2 bg-gray-50 rounded-xl">
       <div className="rounded-xl shadow-lg">

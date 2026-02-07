@@ -906,7 +906,7 @@ export const executeN4495_BasicInfo = async (data: any) => {
         await chrome.scripting.executeScript({
             target: { tabId: tab.id },
             func: (data) => {
-                // console.log("🚀 N.4495 - Βασικά Στοιχεία", data); 
+                console.log("🚀 N.4495 - Βασικά Στοιχεία", data.horizontalPropertyName);
 
                 // Οδοί - Title Case (κάθε λέξη με κεφαλαίο)
                 const toTitleCase = (text: string): string => {
@@ -1197,7 +1197,7 @@ export const executeN4495_Violations = async (data: any) => {
             func: (data) => {
                 // console.log("🚀 N.4495 - Παραβάσεις", data); 
 
-                let violationsData = data?.violations
+                let violationsData = data
 
                 // Sort by priority: 1,2,4,5 first, then 3
                 violationsData = violationsData.sort((a: any, b: any) => {
@@ -1531,8 +1531,8 @@ export const executeN4495_Owners = async (data: any) => {
 
 export const servicesTwoFill = (data: any) => {
     // console.log("Service-2");
-    executeN4495_BasicInfo(data)
-    executeN4495_Violations(data)
-    executeN4495_Owners(data)
+    executeN4495_BasicInfo(data?.projectData)
+    executeN4495_Violations(data?.violations)
+    executeN4495_Owners(data?.projectData)
 }
 

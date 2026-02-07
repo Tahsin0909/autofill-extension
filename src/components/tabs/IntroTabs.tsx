@@ -1,5 +1,4 @@
 import { useRef } from "react"
-
 import Logo from "~components/Logo"
 import PrimaryButton from "~components/shared/PrimaryButton"
 import type { FetchState } from "~interfaces/global"
@@ -25,7 +24,7 @@ function IntroTabs({
       return
     }
 
-    const [userId, projectId] = rawValue.split("-")
+    const [userId, projectId] = rawValue?.split("-")
     if (!userId || !projectId) {
       setState((prev) => ({ ...prev, error: "Ο κωδικός δεν έχει τη σωστή μορφή" }))
       return

@@ -16,10 +16,10 @@ const AutoFillTab = ({
   setState: React.Dispatch<React.SetStateAction<FetchState>>
 }) => {
   const name =
-    state?.data?.data?.createdBy?.firstName +
+    state?.data?.data?.projectData?.createdBy?.firstName +
     " " +
-    state?.data?.data?.createdBy?.lastName
-  const blurEmail = state?.data?.data?.createdBy?.email.replace(
+    state?.data?.data?.projectData?.createdBy?.lastName
+  const blurEmail = state?.data?.data?.projectData?.createdBy?.email.replace(
     /(.{2}).+(@.+)/,
     "$1••••••$2"
   )
@@ -35,23 +35,25 @@ const AutoFillTab = ({
   }
   const handleAutofill = () => {
     // console.log("Clicked");
-    switch (state?.data?.data.service?.serviceTitle) {
+    switch (state?.data?.data?.projectData?.service?.serviceTitle) {
       case "Service-1":
-        servicesOneFill(state?.data?.data);
-        // console.log("Service-1");
+        servicesOneFill(state?.data?.data?.projectData);
+        console.log(state?.data?.data?.projectData)
+        console.log("Service-1");
         break;
 
       case "Service-2":
         servicesTwoFill(state?.data?.data);
-        // console.log("Service-2");
+        // console.log(state?.data?.data)
+        // console.log("Service-2 fill");
         break;
 
       case "Service-3":
-        servicesThree(state?.data?.data);
+        servicesThree(state?.data?.data?.projectData);
         // console.log("Service-3");
         break;
       case "Service-4":
-        servicesOneFill(state?.data?.data);
+        servicesOneFill(state?.data?.data?.projectData);
         // console.log("Service-4");
         break;
 
@@ -113,7 +115,7 @@ const AutoFillTab = ({
         Η φόρμα θα συμπληρωθεί αυτόματα.
       </p>
 
-      <AutoFillMap kaek={state?.data?.data?.kaekProperty.split("/")[0] as string} />
+      <AutoFillMap kaek={state?.data?.data?.projectData?.kaekProperty?.split("/")[0] as string} />
 
       {/* <AllData data={state?.data?.data} /> */}
     </div>
